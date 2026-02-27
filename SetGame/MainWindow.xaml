@@ -13,13 +13,16 @@
         </Grid.ColumnDefinitions>
 
         <UniformGrid x:Name="cardsGrid" Rows="3" Columns="4" Grid.Row="0" Grid.Column="0">
+            <!--card example-->
+            <Border BorderThickness="2" BorderBrush="Black" Margin="15">
+            </Border>
         </UniformGrid>
 
         <StackPanel Grid.Row="0" Grid.Column="1">
             
+            <Button x:Name="newGameBtn"  Content="New game"
+                    FontSize="20" Margin="10" />
         </StackPanel>
-        <Button x:Name="newGameBtn"  Content="New game"
-                FontSize="25" VerticalAlignment="Top" Margin="10" />
 
 
     </Grid>

@@ -23,7 +23,6 @@ namespace SetGame
         public MainWindow()
         {
             InitializeComponent();
-            
         }
     }
 }
