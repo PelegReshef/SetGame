@@ -6,23 +6,93 @@
         xmlns:local="clr-namespace:SetGame"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Geometry x:Key="Squiggle">
+            m 2.3436639,0.01967282
+            c 4.535618,-0.39633 6.206799,5.32337298 6.244084,5.64773998 0,0 0.191624,0.501305 -0.105235,2.525696 -0.138127,0.941942 -0.450792,1.545904 -0.537879,3.0168052 -0.108982,1.840696 1.240071,2.199247 1.438243,4.396585 0.07048,0.781532 -0.5816,1.680328 -1.344699,1.96443 -1.453331,0.541075 -3.555166,0.146919 -3.952249,0.07016 -0.628982,-0.121587 -1.52069,-0.433814 -2.338607,-1.251154 -0.76740905,-0.766868 -0.546591,-0.575494 -1.02898805,-1.824114 -0.46423,-1.201597 -0.215364,-2.505812 -0.03508,-3.484528
+            C 1.0762419,8.9478628 2.0027969,7.8840068 1.9694859,6.8834908 1.9365059,5.8928918 1.4670809,5.0264378 1.1743599,4.3227168 0.70594185,3.1966078 -0.20129315,2.7392708 0.04013685,1.7151688 0.45746685,-0.05507218 1.8069269,0.06657382 2.3436639,0.01967282
+            Z
+        </Geometry>
+            
+        <Geometry x:Key="Capsule">
+            m 0.01419259,5.0013676
+            c 0,0 -0.33015,-5.0013676 5.51206951,-5.0013676 5.8422189,0 5.5729339,5.0598326 5.5729339,5.0598326
+            v 9.7286124
+            c 0,0 0.32003,4.224815 -5.6163469,4.224815 -5.93637821,0 -5.47447291,-4.283221 -5.47447291,-4.283221
+            z
+        </Geometry>
+
+        <Geometry x:Key="Diamond">
+            M 3.748305,0 0,6.5297592 3.762424,12.951682 7.370668,6.5035832
+            Z
+        </Geometry>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/> 
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <UniformGrid x:Name="cardsGrid" Rows="3" Columns="4" Grid.Row="0" Grid.Column="0">
+        <Grid x:Name="cardsGrid" Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <!--card example-->
-            <Border BorderThickness="2" BorderBrush="Black" Margin="15">
-            </Border>
-        </UniformGrid>
+            <!--<Border BorderThickness="2" BorderBrush="Black" Margin="15" >
+                <Viewbox>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Path 
+                            Data="{StaticResource Squiggle}"
+                            Fill="Magenta"
+              D              
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            Stretch="Uniform"
+                            Width="50"
+                            Height="80"
+                            />
+                        <Path 
+                            Data="{StaticResource Squiggle}"
+                            Fill="Magenta"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            Stretch="Uniform"
+                            Width="50"
+                            Height="80"
+                            />
+                        <Path 
+                            Data="{StaticResource Squiggle}"
+                            Fill="Magenta"
+                            Stroke="Black"
+                            StrokeThickness="1"
+                            Stretch="Uniform"
+                            Width="50"
+                            Height="80"
+                            />
+                        
+                    </StackPanel>
+                </Viewbox>
+            </Border>-->
+                
+        </Grid>
+        <Border BorderBrush="Black" BorderThickness="3" Grid.Row="0" Grid.Column="1">
+            <StackPanel >
 
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            
-            <Button x:Name="newGameBtn"  Content="New game"
-                    FontSize="20" Margin="10" />
-        </StackPanel>
+                <Button x:Name="newGameBtn"  Content="New game"
+                        FontSize="20" Margin="10" />
+                
+            </StackPanel>
+
+        </Border>
 
 
     </Grid>
