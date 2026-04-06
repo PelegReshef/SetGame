@@ -25,6 +25,17 @@ namespace SetGame
         public Color getColor() { return color; }
         public Fill getFill() { return fill; }
         public Count getCount() { return count; }
+
+        public Enum[] GetTraitArray()
+        {
+            return new Enum[]
+            {
+                shape,
+                color, 
+                fill, 
+                count
+            };
+        }
     }
     public enum Shape
     {

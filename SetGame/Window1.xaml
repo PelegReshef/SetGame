@@ -1,0 +1,49 @@
+﻿<Window x:Class="SetGame.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SetGame"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="20" Grid.Column="1">
+
+            <TextBlock Text="Enter player names:"
+                   FontSize="25"
+                   Margin="0,0,0,15"
+                   HorizontalAlignment="Center"/>
+
+            <StackPanel Margin="5">
+                <TextBlock Text="Player 1" FontSize="16"/>
+                <TextBox x:Name="Player1Box" FontSize="16"/>
+            </StackPanel>
+
+            <StackPanel Margin="5">
+                <TextBlock Text="Player 2" FontSize="16"/>
+                <TextBox x:Name="Player2Box" FontSize="16"/>
+            </StackPanel>
+
+            <StackPanel Margin="5">
+                <TextBlock Text="Player 3" FontSize="16"/>
+                <TextBox x:Name="Player3Box" FontSize="16"/>
+            </StackPanel>
+
+            <StackPanel Margin="5">
+                <TextBlock Text="Player 4" FontSize="16"/>
+                <TextBox x:Name="Player4Box" FontSize="16"/>
+            </StackPanel>
+
+            <Button Content="Start Game"
+                Margin="15"
+                FontSize="20"
+                Click="Button_Click"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

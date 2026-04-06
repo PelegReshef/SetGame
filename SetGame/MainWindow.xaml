@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SetGame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Set" Height="450" Width="800" Background="#F8FAFF">
     <Window.Resources>
+        <Style x:Key="SidebarButton" TargetType="Button">
+            <Setter Property="Background" Value="#CCDCF8"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
         <Geometry x:Key="Squiggle">
             m 2.3436639,0.01967282
             c 4.535618,-0.39633 6.206799,5.32337298 6.244084,5.64773998 0,0 0.191624,0.501305 -0.105235,2.525696 -0.138127,0.941942 -0.450792,1.545904 -0.537879,3.0168052 -0.108982,1.840696 1.240071,2.199247 1.438243,4.396585 0.07048,0.781532 -0.5816,1.680328 -1.344699,1.96443 -1.453331,0.541075 -3.555166,0.146919 -3.952249,0.07016 -0.628982,-0.121587 -1.52069,-0.433814 -2.338607,-1.251154 -0.76740905,-0.766868 -0.546591,-0.575494 -1.02898805,-1.824114 -0.46423,-1.201597 -0.215364,-2.505812 -0.03508,-3.484528
@@ -53,25 +59,6 @@
                         <Path 
                             Data="{StaticResource Squiggle}"
                             Fill="Magenta"
-              D              
-                            Stroke="Black"
-                            StrokeThickness="1"
-                            Stretch="Uniform"
-                            Width="50"
-                            Height="80"
-                            />
-                        <Path 
-                            Data="{StaticResource Squiggle}"
-                            Fill="Magenta"
-                            Stroke="Black"
-                            StrokeThickness="1"
-                            Stretch="Uniform"
-                            Width="50"
-                            Height="80"
-                            />
-                        <Path 
-                            Data="{StaticResource Squiggle}"
-                            Fill="Magenta"
                             Stroke="Black"
                             StrokeThickness="1"
                             Stretch="Uniform"
@@ -84,13 +71,67 @@
             </Border>-->
                 
         </Grid>
-        <Border BorderBrush="Black" BorderThickness="3" Grid.Row="0" Grid.Column="1">
-            <StackPanel >
+        <Border BorderBrush="#CCDCF8" BorderThickness="3" Grid.Row="0" Grid.Column="1" Background="#EFFCFF">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
 
-                <Button x:Name="newGameBtn"  Content="New game"
-                        FontSize="20" Margin="10" />
+                <Button x:Name="newGameBtn"  Content="New game" 
+                        Style="{StaticResource SidebarButton}" Click="newGameBtn_Click" />
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Style="{StaticResource SidebarButton}"
+                            Content="Open 3 cards" FontSize="17"
+                            Click="ThreeCardsBtn_Click"/>
+                    <Button Style="{StaticResource SidebarButton}"
+                            Content="End game" FontSize="17"
+                            Grid.Column="1"/>
+
+                </Grid>
                 
-            </StackPanel>
+                <!--added grid for vertical alignment-->
+                <Grid Background="#CCDCF8" Grid.Row="2" Margin="10">
+                    <TextBlock x:Name="outputTBlock"  Text="hello" VerticalAlignment="Center"
+                               FontSize="20" TextAlignment="Center"
+                               FontWeight="SemiBold" TextWrapping="Wrap"/>
+                    
+                </Grid>
+
+                <Grid Grid.Row="3" x:Name="playersGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!--exaple player card-->
+                    <!--<Border BorderBrush="Black" BorderThickness="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="name: blargous"/>
+                            <TextBlock Text="point: 100" Grid.Row="1"/>
+                        </Grid>
+                    </Border>-->
+                </Grid>
+
+
+
+            </Grid>
 
         </Border>
 
