@@ -24,43 +24,18 @@ namespace SetGame
         public MainWindow()
         {
             InitializeComponent();
-            InitBoard();
-            //Card card = new Card(Shape.Squiggle, Color.Green, Fill.Full, Count.Two);
-            //RenderCard(card, 1, 1);
+            boardDisplay = new BoardDisplay(this);
+            boardDisplay.InitBoard();
+            boardDisplay.HideBoard();
 
         }
-
-        Border[,] boardDisplay = new Border[3, 5];
+        BoardDisplay boardDisplay;
         Card[,] boardCards = new Card[3, 5];
         List<Card> cards;
-        List<Border> selectedCards = new List<Border>();
         Random rnd = new Random();
         List<string> playerNames;
         int cardsCount = 0;
-        void InitBoard()
-        {
-            for(int x = 0;x < 3;x++)
-            {
-                for (int y = 0;y < 5; y++) 
-                {
-                    Border b = new Border()
-                    {
-                        BorderThickness = new Thickness(2),
-                        Margin = new Thickness(15),
-                        BorderBrush = new SolidColorBrush(Colors.Black),
-                        CornerRadius = new CornerRadius(20),
-                        Background = new SolidColorBrush(Colors.White),
-                        Tag = new Point(x, y),
-                        Visibility = Visibility.Collapsed, // start app with no cards visible
-                    };
-                    b.MouseDown += Border_MouseDown;
-                    Grid.SetColumn(b, x);
-                    Grid.SetRow(b, y);
-                    boardDisplay[x,y] = b;
-                    cardsGrid.Children.Add(b);
-                }
-            }
-        }
+        static List<Border> selectedCards = new List<Border>();
 
         void InitPlayers()
         {
@@ -210,7 +185,7 @@ namespace SetGame
         }
 
         bool needToSelectPlayer = false;
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        public void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Border b = (Border)sender;
             if (selectedCards.Contains(b))
@@ -289,72 +264,6 @@ namespace SetGame
             }
         }
 
-        Viewbox RenderCard(Card card, int x, int y)
-        {
-            Viewbox vb = new Viewbox()
-            {
-                Margin = new Thickness(2),
-            };
-            StackPanel sp = new StackPanel()
-            {
-                Orientation = Orientation.Horizontal,
-                HorizontalAlignment = HorizontalAlignment.Center
-            };
-            for (int i = 0; i < (int)card.getCount() + 1; i++)
-            {
-                Path p = new Path()
-                {
-                    Margin = new Thickness(2),
-                    Stretch = Stretch.Uniform,
-                    StrokeThickness = 1
-                };
-                
-                p.Data = (Geometry)this.Resources[card.GetShape().ToString()];
-
-               var color = Colors.White; // will get overriden
-
-                switch (card.getColor())
-                {
-                    case Color.Red:
-                        color = Colors.Red;
-                        break;
-                    case Color.Green:
-                        color = Colors.Green;
-                        break;
-                    case Color.Purple:
-                        color = Colors.Purple;
-                        break;
-                    default:
-                        throw new Exception();
-                }
-
-                p.Stroke = new SolidColorBrush(color);
-                int opacity = 0;
-                switch (card.getFill())
-                {
-                    case Fill.Full:
-                        opacity = 255;
-                        break;
-                    case Fill.Striped:
-                        opacity = 75;
-                        break;
-                    case Fill.Hollow:
-                        opacity = 0;
-                        break;
-                    default:
-                        throw new Exception();
-                }
-
-                color.A = (byte)opacity;
-                p.Fill = new SolidColorBrush(color);
-
-                
-
-                sp.Children.Add(p);
-            }
-            vb.Child = sp;
-            return vb;
-        }
 
         bool IsSet(Card[] cards)
         {
@@ -404,20 +313,6 @@ namespace SetGame
 
                 }
             }
-        }
-        void SetCard(Card c, int x, int y)
-        {
-            boardCards[x, y] = c;
-            boardDisplay[x, y].Child = RenderCard(c, x, y);
-            boardDisplay[x, y].Visibility = Visibility.Visible;
-
-        }
-        void DeleteCard(int x, int y)
-        {
-            boardCards[x, y] = null;
-            boardDisplay[x, y].Child = null;
-            boardDisplay[x, y].Visibility = Visibility.Collapsed;
-
         }
 
         private void newGameBtn_Click(object sender, RoutedEventArgs e)
