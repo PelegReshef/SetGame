@@ -72,7 +72,7 @@ namespace SetGame
                 Orientation = Orientation.Horizontal,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
-            for (int i = 0; i < (int)card.getCount() + 1; i++)
+            for (int i = 0; i < (int)card.GetCount() + 1; i++)
             {
                 Path p = new Path()
                 {
@@ -85,7 +85,7 @@ namespace SetGame
 
                 var color = Colors.White; // will get overriden
 
-                switch (card.getColor())
+                switch (card.GetColor())
                 {
                     case Color.Red:
                         color = Colors.Red;
@@ -102,7 +102,7 @@ namespace SetGame
 
                 p.Stroke = new SolidColorBrush(color);
                 int opacity = 0;
-                switch (card.getFill())
+                switch (card.GetFill())
                 {
                     case Fill.Full:
                         opacity = 255;

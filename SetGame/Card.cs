@@ -22,9 +22,9 @@ namespace SetGame
         }
 
         public Shape GetShape() { return shape; }
-        public Color getColor() { return color; }
-        public Fill getFill() { return fill; }
-        public Count getCount() { return count; }
+        public Color GetColor() { return color; }
+        public Fill GetFill() { return fill; }
+        public Count GetCount() { return count; }
 
         public Enum[] GetTraitArray()
         {
