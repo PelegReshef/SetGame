@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace SetGame
 {
-    class Player
+    public class Player
     {
         public string name;
         public int points;
+
+        public string GetName() { return name; }
+        public int GetPoints() { return points; }
+
+        public void SetPoints(int points) { this.points = points; }
 
         public Player(string name, int points)
         {

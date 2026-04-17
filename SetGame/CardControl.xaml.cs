@@ -26,9 +26,32 @@ namespace SetGame
         }
         Card currentCard = null;
 
+        public Card GetCard() { return currentCard; }
+        public void Hide()
+        {
+            this.Visibility = Visibility.Collapsed;
+        }
+        public void Show()
+        {
+            this.Visibility = Visibility.Visible;
+        }
+
+        public void Highlight()
+        {
+            this.cardBorder.Background = new SolidColorBrush(Colors.LightGoldenrodYellow);
+        }
+        public void Unhighlight()
+        {
+            this.cardBorder.Background = new SolidColorBrush(Colors.White);
+        }
         public void ChangeCard(Card c)
         {
-            CardStackPanel.Children.Clear();
+            cardStackPanel.Children.Clear();
+            currentCard = c;
+            if (c == null)
+            {
+                return;
+            }
             for (int i = 0; i < (int)c.GetCount() + 1; i++)
             {
                 Path p = new Path()
@@ -79,7 +102,7 @@ namespace SetGame
 
 
 
-                CardStackPanel.Children.Add(p);
+                cardStackPanel.Children.Add(p);
             }
         }
     }

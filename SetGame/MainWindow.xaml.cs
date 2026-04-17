@@ -24,24 +24,51 @@ namespace SetGame
         public MainWindow()
         {
             InitializeComponent();
-            boardDisplay = new BoardDisplay(this);
-            boardDisplay.InitBoard();
+            InitBoard();
+            boardDisplay = new BoardDisplay(board);
             boardDisplay.HideBoard();
 
         }
-        BoardDisplay boardDisplay;
-        Card[,] boardCards = new Card[3, 5];
-        List<Card> cards;
         Random rnd = new Random();
-        List<string> playerNames;
+
+        // represents the game board
+        CardControl[,] board = new CardControl[3, 5];
+
+        // represents the players currently in game
+        PlayerControl[,] playerBoard = new PlayerControl[2, 2];
+
+        // class to manage the board UI
+        BoardDisplay boardDisplay;
+
+        // how many cards are currently open
         int cardsCount = 0;
-        static List<Border> selectedCards = new List<Border>();
+
+        // cards currently selected by user (up to 3)
+        List<Card> selectedCards = new List<Card>();
+
+
+        // initialize the board variable with a new CardControl 2D array
+        public void InitBoard()
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    CardControl cc = new CardControl();
+                    cc.MouseDown += CardControl_MouseDown;
+                    Grid.SetColumn(cc, x);
+                    Grid.SetRow(cc, y);
+                    board[x, y] = cc;
+                    cardsGrid.Children.Add(cc);
+                }
+            }
+        }
 
         void InitPlayers()
         {
             for (int i = 0; i < 4; i++)
             {
-                if (string.IsNullOrWhiteSpace(playerNames[i]))
+                if (string.IsNullOrWhiteSpace(players[i]))
                 {
                     continue;
                 }
@@ -63,7 +90,7 @@ namespace SetGame
 
                 TextBlock tb1 = new TextBlock()
                 {
-                    Text = $"Name: {playerNames[i]}",
+                    Text = $"Name: {players[i]}",
                     FontSize = 15
                 };
                 TextBlock tb2 = new TextBlock()
@@ -77,19 +104,25 @@ namespace SetGame
                 g.Children.Add(tb1);
                 g.Children.Add(tb2);
                 b.Child = g;
-                b.Tag = (tb2, playerNames[i]);
+                b.Tag = (tb2, players[i]);
 
                 playersGrid.Children.Add(b);
             }
         }
 
-        void GetPlayersNames()
+        List<Player> CreatePlayersList()
         {
+            List<Player> ret = new List<Player>();
             Window1 win = new Window1();
             if (win.ShowDialog().Value)
             {
-                playerNames = win.names;
+                foreach (string name in win.names)
+                {
+                    Player p = new Player(name, 0);
+                    ret.Add(p);
+                }
             }
+            return ret;
         }
 
         private void PlayerBorder_MouseButton(object sender, MouseButtonEventArgs e)
@@ -185,7 +218,7 @@ namespace SetGame
         }
 
         bool needToSelectPlayer = false;
-        public void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        public void CardControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Border b = (Border)sender;
             if (selectedCards.Contains(b))
@@ -292,7 +325,7 @@ namespace SetGame
 
         void NewGame()
         {
-            GetPlayersNames();
+            CreatePlayersList();
             playersGrid.Children.Clear();
             cardsGrid.Children.Clear();
             InitBoard();
