@@ -62,6 +62,10 @@ namespace SetGame
             }
         }
 
+        /// <summary>
+        /// initialize the players grid with new PlayerControl array.
+        /// meant to be called only once
+        /// </summary>
         void InitPlayers()
         {
             for (int i = 0; i < 4; i++)
