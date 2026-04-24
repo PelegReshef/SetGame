@@ -48,5 +48,22 @@ namespace SetGame
             nameTB.Text = player.GetName();
             pointsTB.Text = player.GetPoints().ToString();
         }
+
+        /// <summary>
+        /// increment one point for a given player name
+        /// </summary>
+        /// <returns>true if player was found else false</returns>
+        public static bool IncrementForPlayer(PlayerControl[] players, string name)
+        {
+            for (int i = 0; i < players.Length; i++)
+            {
+                if (players[i].player.GetName() == name)
+                {
+                    players[i].Increment();
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

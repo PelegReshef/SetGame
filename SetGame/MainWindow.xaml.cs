@@ -25,8 +25,7 @@ namespace SetGame
         {
             InitializeComponent();
             InitBoard();
-            boardDisplay = new BoardDisplay(board);
-            boardDisplay.HideBoard();
+            CardControl.HideBoard(board);
 
         }
         Random rnd = new Random();
@@ -37,9 +36,6 @@ namespace SetGame
         // represents the players currently in game
         PlayerControl[,] playerBoard = new PlayerControl[2, 2];
 
-        // class to manage the board UI
-        BoardDisplay boardDisplay;
-
         // how many cards are currently open
         int cardsCount = 0;
 
@@ -47,7 +43,9 @@ namespace SetGame
         List<Card> selectedCards = new List<Card>();
 
 
-        // initialize the board variable with a new CardControl 2D array
+        /// <summary>
+        /// initialize the board variable with a new CardControl 2D array
+        /// </summary>
         public void InitBoard()
         {
             for (int x = 0; x < 3; x++)
@@ -68,45 +66,47 @@ namespace SetGame
         {
             for (int i = 0; i < 4; i++)
             {
-                if (string.IsNullOrWhiteSpace(players[i]))
-                {
-                    continue;
-                }
-                Border b = new Border()
-                {
-                    BorderThickness = new Thickness(2),
-                    BorderBrush = new SolidColorBrush(Colors.Black),
-                    CornerRadius = new CornerRadius(10),
-                    Margin = new Thickness(10),
+                PlayerControl pc = new PlayerControl();
+                playersGrid.Children.Add(pc);
+
+                //if (string.IsNullOrWhiteSpace(players[i]))
+                //{
+                //    continue;
+                //}
+                //Border b = new Border()
+                //{
+                //    BorderThickness = new Thickness(2),
+                //    BorderBrush = new SolidColorBrush(Colors.Black),
+                //    CornerRadius = new CornerRadius(10),
+                //    Margin = new Thickness(10),
                     
-                };
-                Grid.SetRow(b, i / 2);
-                Grid.SetColumn(b, i % 2);
-                b.MouseDown += PlayerBorder_MouseButton;
+                //};
+                //Grid.SetRow(b, i / 2);
+                //Grid.SetColumn(b, i % 2);
+                //b.MouseDown += PlayerBorder_MouseButton;
 
-                Grid g = new Grid();
-                g.RowDefinitions.Add(new RowDefinition());
-                g.RowDefinitions.Add(new RowDefinition());
+                //Grid g = new Grid();
+                //g.RowDefinitions.Add(new RowDefinition());
+                //g.RowDefinitions.Add(new RowDefinition());
 
-                TextBlock tb1 = new TextBlock()
-                {
-                    Text = $"Name: {players[i]}",
-                    FontSize = 15
-                };
-                TextBlock tb2 = new TextBlock()
-                {
-                    FontSize = 15
-                };
-                int points = 0;
-                tb2.Tag = points;
-                tb2.Text = $"Points: {points}";
-                Grid.SetRow(tb2, 1);
-                g.Children.Add(tb1);
-                g.Children.Add(tb2);
-                b.Child = g;
-                b.Tag = (tb2, players[i]);
+                //TextBlock tb1 = new TextBlock()
+                //{
+                //    Text = $"Name: {players[i]}",
+                //    FontSize = 15
+                //};
+                //TextBlock tb2 = new TextBlock()
+                //{
+                //    FontSize = 15
+                //};
+                //int points = 0;
+                //tb2.Tag = points;
+                //tb2.Text = $"Points: {points}";
+                //Grid.SetRow(tb2, 1);
+                //g.Children.Add(tb1);
+                //g.Children.Add(tb2);
+                //b.Child = g;
+                //b.Tag = (tb2, players[i]);
 
-                playersGrid.Children.Add(b);
             }
         }
 

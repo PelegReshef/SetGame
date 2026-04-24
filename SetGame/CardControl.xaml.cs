@@ -27,24 +27,15 @@ namespace SetGame
         Card currentCard = null;
 
         public Card GetCard() { return currentCard; }
-        public void Hide()
+        private void Hide()
         {
             this.Visibility = Visibility.Collapsed;
         }
-        public void Show()
+        private void Show()
         {
             this.Visibility = Visibility.Visible;
         }
-
-        public void Highlight()
-        {
-            this.cardBorder.Background = new SolidColorBrush(Colors.LightGoldenrodYellow);
-        }
-        public void Unhighlight()
-        {
-            this.cardBorder.Background = new SolidColorBrush(Colors.White);
-        }
-        public void ChangeCard(Card c)
+        private void ChangeCard(Card c)
         {
             cardStackPanel.Children.Clear();
             currentCard = c;
@@ -105,5 +96,48 @@ namespace SetGame
                 cardStackPanel.Children.Add(p);
             }
         }
+        public void Highlight()
+        {
+            this.cardBorder.Background = new SolidColorBrush(Colors.LightGoldenrodYellow);
+        }
+        public void Unhighlight()
+        {
+            this.cardBorder.Background = new SolidColorBrush(Colors.White);
+        }
+
+        public void SetCard(Card c)
+        {
+            ChangeCard(c);
+            Show();
+        }
+        public void DeleteCard()
+        {
+            ChangeCard(null);
+            Hide();
+
+        }
+        public static void ResetBoard(CardControl[,] board)
+        {
+            foreach (var cc in board)
+            {
+                cc.ChangeCard(null);
+            }
+        }
+        public static void ShowBoard(CardControl[,] board)
+        {
+            foreach (var cc in board)
+            {
+                cc.Show();
+            }
+        }
+
+        public static void HideBoard(CardControl[,] board)
+        {
+            foreach (var cc in board)
+            {
+                cc.Hide();
+            }
+        }
+
     }
 }
