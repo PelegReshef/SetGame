@@ -31,8 +31,15 @@ namespace SetGame
         public void SetPlayer(Player p)
         {
             player = p;
-            UpdateUI();
-
+            UpdateUi();
+        }
+        public void Hide()
+        {
+            this.Visibility = Visibility.Collapsed;
+        }
+        public void Show()
+        {
+            this.Visibility = Visibility.Visible;
         }
 
         public void Increment()
@@ -41,12 +48,12 @@ namespace SetGame
             pts++;
             player.SetPoints(pts);
 
-            UpdateUI();
+            UpdateUi();
         }
-        private void UpdateUI()
+        private void UpdateUi()
         {
-            nameTB.Text = player.GetName();
-            pointsTB.Text = player.GetPoints().ToString();
+            nameTB.Text = player != null ? player.GetName() : "";
+            pointsTB.Text = player != null ? player.GetPoints().ToString() : "";
         }
 
         /// <summary>
@@ -64,6 +71,13 @@ namespace SetGame
                 }
             }
             return false;
+        }
+        public static void ResetAllPlayers(PlayerControl[] players)
+        {
+            foreach (PlayerControl pc in players)
+            {
+                pc.SetPlayer(null);
+            }
         }
     }
 }

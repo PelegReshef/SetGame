@@ -39,6 +39,9 @@ namespace SetGame
         // how many cards are currently open
         int cardsCount = 0;
 
+        // cards left to open in the game
+        List<Card> cards = new List<Card>();
+
         // cards currently selected by user (up to 3)
         List<Card> selectedCards = new List<Card>();
 
@@ -71,6 +74,9 @@ namespace SetGame
             for (int i = 0; i < 4; i++)
             {
                 PlayerControl pc = new PlayerControl();
+                Grid.SetRow(pc, i / 2);
+                Grid.SetColumn(pc, i % 2);
+                pc.MouseDown += PlayerControl_MouseButton;
                 playersGrid.Children.Add(pc);
 
                 //if (string.IsNullOrWhiteSpace(players[i]))
@@ -118,6 +124,7 @@ namespace SetGame
         {
             List<Player> ret = new List<Player>();
             Window1 win = new Window1();
+            //win.DialogResult = win.ShowDialog();
             if (win.ShowDialog().Value)
             {
                 foreach (string name in win.names)
@@ -129,7 +136,7 @@ namespace SetGame
             return ret;
         }
 
-        private void PlayerBorder_MouseButton(object sender, MouseButtonEventArgs e)
+        private void PlayerControl_MouseButton(object sender, MouseButtonEventArgs e)
         {
             if (!needToSelectPlayer)
             {
@@ -222,26 +229,36 @@ namespace SetGame
         }
 
         bool needToSelectPlayer = false;
+
+        /// <summary>
+        /// decides what happens when a card get slected
+        /// </summary>
         public void CardControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Border b = (Border)sender;
-            if (selectedCards.Contains(b))
+            CardControl cc = (CardControl)sender;
+
+            // if the card was already selected,
+            // deselect it and update list
+            if (selectedCards.Contains(cc.GetCard()))
             {
-                b.Background = new SolidColorBrush(Colors.White);
-                selectedCards.Remove(b);
+                cc.Unhighlight();
+                selectedCards.Remove(cc.GetCard());
                 outputTBlock.Text = "Select three cards to create a Set";
                 return;
             }
 
-            if (selectedCards.Distinct().Count() >= 3)
+            // if this is the 4th card selected, 
+            // deselct all cards selected before
+            if (selectedCards.Count() >= 3)
             {
                 ResetCardSelction();
             }
 
-            b.Background= new SolidColorBrush(Colors.LightGoldenrodYellow);
-            selectedCards.Add(b);
+            cc.Highlight();
+            selectedCards.Add(cc.GetCard());
 
-
+            // if this is the 3rd card selected, 
+            // let players check if all selected are a set
             if (selectedCards.Distinct().Count() == 3)
             {
                 needToSelectPlayer= true;
@@ -257,12 +274,16 @@ namespace SetGame
         {
             foreach (var card in selectedCards)
             {
-                card.Background = new SolidColorBrush(Colors.White);
+                var cc = CardControl.FindByCard(this.board, card);
+                cc?.Unhighlight();
 
             }
             selectedCards.Clear();
         }
 
+        /// <summary>
+        /// create a new list of all the cards in the game
+        /// </summary>
         List<Card> CreateAllCardsList()
         {
             var cards = new List<Card>();

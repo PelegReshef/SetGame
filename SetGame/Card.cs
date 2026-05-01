@@ -36,6 +36,15 @@ namespace SetGame
                 count
             };
         }
+        public bool Equals(Card other)
+        {
+            if (other == null) return false;
+
+            return this.shape.Equals(other.shape) &&
+                this.color.Equals(other.color) &&
+                this.fill.Equals(other.fill) &&
+                this.count.Equals(other.count);
+        }
     }
     public enum Shape
     {

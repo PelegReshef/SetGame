@@ -138,6 +138,28 @@ namespace SetGame
                 cc.Hide();
             }
         }
+        public static CardControl FindByCard(CardControl[,] board, Card c)
+        {
+            foreach (var cc in board)
+            {
+                if (cc.currentCard.Equals(c))
+                {
+                    return cc;
+                }
+            }
+            return null;
+        }
+        public static void ArrangeCards(CardControl[,] board)
+        {
 
+        }
+        public static void AddNewCards(CardControl[,] board, Card[] cards)
+        {
+
+        }
+        public static void ReplaceCards(CardControl[] board, Card[] oldCards, Card[] newCards)
+        {
+
+        }
     }
 }
