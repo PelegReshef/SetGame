@@ -25,6 +25,7 @@ namespace SetGame
         {
             InitializeComponent();
             InitBoard();
+            InitPlayers();
             CardControl.HideBoard(board);
 
         }
@@ -77,13 +78,15 @@ namespace SetGame
                 Grid.SetRow(pc, i / 2);
                 Grid.SetColumn(pc, i % 2);
                 pc.MouseDown += PlayerControl_MouseButton;
+                pc.Hide();
                 playersGrid.Children.Add(pc);
+                playerBoard[i % 2, i / 2] = pc;
 
                 //if (string.IsNullOrWhiteSpace(players[i]))
                 //{
                 //    continue;
                 //}
-                //Border b = new Border()
+                //Border pc = new Border()
                 //{
                 //    BorderThickness = new Thickness(2),
                 //    BorderBrush = new SolidColorBrush(Colors.Black),
@@ -91,9 +94,9 @@ namespace SetGame
                 //    Margin = new Thickness(10),
                     
                 //};
-                //Grid.SetRow(b, i / 2);
-                //Grid.SetColumn(b, i % 2);
-                //b.MouseDown += PlayerBorder_MouseButton;
+                //Grid.SetRow(pc, i / 2);
+                //Grid.SetColumn(pc, i % 2);
+                //pc.MouseDown += PlayerBorder_MouseButton;
 
                 //Grid g = new Grid();
                 //g.RowDefinitions.Add(new RowDefinition());
@@ -114,8 +117,8 @@ namespace SetGame
                 //Grid.SetRow(tb2, 1);
                 //g.Children.Add(tb1);
                 //g.Children.Add(tb2);
-                //b.Child = g;
-                //b.Tag = (tb2, players[i]);
+                //pc.Child = g;
+                //pc.Tag = (tb2, players[i]);
 
             }
         }
@@ -142,31 +145,14 @@ namespace SetGame
             {
                 return;
             }
-            Border b = (Border)sender;
+            PlayerControl pc = (PlayerControl)sender;
             
-            (TextBlock, string) tag = ((TextBlock, string))b.Tag;
-            string name = tag.Item2;
+            if (IsSet(selectedCards.ToArray()))
+            {
+                outputTBlock.Text = $"Well Done! Its a Set! \n {pc.GetPlayer().GetName()} gets a point!";
 
-            var cardsList = new List<Card>();
-            foreach (Border border in selectedCards)
-            {
-                Point p = (Point)border.Tag;
-                cardsList.Add(boardCards[(int)p.X, (int)p.Y]);
-            }
-            if (IsSet(cardsList.ToArray()))
-            {
-                outputTBlock.Text = $"Well Done! Its a Set! \n {name} gets a point!";
-                TextBlock tb = tag.Item1;
-                if (tb.Tag is int points)
-                {
-                    points++;
-                    tb.Tag = points;
-                }
-                else
-                {
-                    points = 0;
-                }
-                tb.Text = $"Points: {points}";
+                pc.Increment();
+
                 needToSelectPlayer = false;
 
                 // only need to add cards when there are 12 cards
@@ -174,49 +160,41 @@ namespace SetGame
                 if (cardsCount <= 12)
                 {
                     // add new cards in the place of the current set
-                    List<Point> positions = new List<Point>();
-                    foreach(Border border in selectedCards)
-                    {
-                        Point pos = (Point)border.Tag;
-                        positions.Add(pos);
-                    }
-                    AddNewCards(positions);
-
+                    List<Card> newCards = DrawCards(3);
+                    CardControl.ReplaceCards(board, selectedCards.ToArray(), newCards.ToArray());
                 }
                 else
                 {
+                    CardControl.ArrangeCards(board);
                     // pull the cards in the last row inside the first 4 rows
-
-                    
-                    // they both should have an equal amount of items inside
-                    List<Point> positionsInside = new List<Point>();
-                    List<Card> cardsOutside = new List<Card>();
+                    //List<Point> positionsInside = new List<Point>();
+                    //List<Card> cardsOutside = new List<Card>();
 
 
-                    for (int x = 0; x < 3; x++)
-                    {
-                        if (!selectedCards.Contains(boardDisplay[x, 4]))
-                        {
-                            Card c = boardCards[x, 4];
-                            cardsOutside.Add(c);
+                    //for (int x = 0; x < 3; x++)
+                    //{
+                    //    if (!selectedCards.Contains(boardDisplay[x, 4]))
+                    //    {
+                    //        Card c = boardCards[x, 4];
+                    //        cardsOutside.Add(c);
 
-                        }
-                        DeleteCard(x, 4);
-                    }
-                    foreach(Border border in selectedCards)
-                    {
-                        Point pos = (Point)border.Tag;
-                        if (pos.Y < 4)
-                        {
-                            positionsInside.Add(pos);
-                        }
-                    }
-                    for (int i = 0; i < cardsOutside.Count; i++)
-                    {
-                        Point pos = positionsInside[i];
-                        SetCard(cardsOutside[i], (int)pos.X, (int)pos.Y);
-                    }
-                    cardsCount -= 3;
+                    //    }
+                    //    DeleteCard(x, 4);
+                    //}
+                    //foreach(Border border in selectedCards)
+                    //{
+                    //    Point pos = (Point)border.Tag;
+                    //    if (pos.Y < 4)
+                    //    {
+                    //        positionsInside.Add(pos);
+                    //    }
+                    //}
+                    //for (int i = 0; i < cardsOutside.Count; i++)
+                    //{
+                    //    Point pos = positionsInside[i];
+                    //    SetCard(cardsOutside[i], (int)pos.X, (int)pos.Y);
+                    //}
+                    //cardsCount -= 3;
 
                 }
             }
@@ -306,22 +284,39 @@ namespace SetGame
 
         }
 
-        void AddNewCards(List<Point> positions)
-        {
-            foreach(Point p in positions)
-            {
-                int x = (int)p.X;
-                int y = (int)p.Y;
+        //void AddNewCards(List<Point> positions)
+        //{
+        //    foreach(Point p in positions)
+        //    {
+        //        int x = (int)p.X;
+        //        int y = (int)p.Y;
 
+        //        int index = rnd.Next(0, cards.Count);
+        //        Card c = cards[index];
+
+        //        SetCard(c, x, y);
+        //        cards.Remove(c);
+                
+        //    }
+        //}
+
+        /// <summary>
+        /// get a list of new cards that were
+        /// drawn from the cards list by a specific amount
+        /// </summary>
+        List<Card> DrawCards(int amount)
+        {
+            List<Card> ret = new List<Card>();
+            for (int i = 0; i < amount ; i++)
+            {
                 int index = rnd.Next(0, cards.Count);
                 Card c = cards[index];
+                ret.Add(c);
 
-                SetCard(c, x, y);
                 cards.Remove(c);
-                
             }
+            return ret;
         }
-
 
         bool IsSet(Card[] cards)
         {
@@ -350,27 +345,30 @@ namespace SetGame
 
         void NewGame()
         {
-            CreatePlayersList();
-            playersGrid.Children.Clear();
-            cardsGrid.Children.Clear();
-            InitBoard();
-            InitPlayers();
+            var players = CreatePlayersList();
+            PlayerControl.CreateNewPlayers(playerBoard, players.ToArray());
+            CardControl.ResetBoard(board);
             cardsCount = 12;
 
             cards = CreateAllCardsList();
-            for (int x = 0; x < 3; x++)
-            {
-                for (int y = 0; y < 4; y++) // game starts with 12 cards open
-                {
-                    int index = rnd.Next(0, cards.Count);
-                    Card c = cards[index];
-                    boardCards[x, y] = c;
-                    boardDisplay[x, y].Child = RenderCard(c, x, y);
-                    boardDisplay[x, y].Visibility = Visibility.Visible;
-                    cards.Remove(c);
 
-                }
-            }
+            //start game with 12 cards
+            List<Card> newCards = DrawCards(12);
+            CardControl.AddNewCards(board, newCards.ToArray());
+
+            //for (int x = 0; x < 3; x++)
+            //{
+            //    for (int y = 0; y < 4; y++) // game starts with 12 cards open
+            //    {
+            //        int index = rnd.Next(0, cards.Count);
+            //        Card c = cards[index];
+            //        boardCards[x, y] = c;
+            //        boardDisplay[x, y].Child = RenderCard(c, x, y);
+            //        boardDisplay[x, y].Visibility = Visibility.Visible;
+            //        cards.Remove(c);
+
+            //    }
+            //}
         }
 
         private void newGameBtn_Click(object sender, RoutedEventArgs e)
@@ -385,13 +383,7 @@ namespace SetGame
                 return;
             }
             cardsCount += 3;
-            List<Point> positions = new List<Point>()
-            {
-                new Point(0, 4),
-                new Point(1, 4),
-                new Point(2, 4),
-            };
-            AddNewCards(positions);
+            CardControl.AddNewCards(board, DrawCards(3).ToArray());
             
         }
 

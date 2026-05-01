@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SetGame"
         mc:Ignorable="d"
-        Title="Set" Height="450" Width="800" Background="#F8FAFF">
+        Title="Set" Height="450" Width="800" 
+        Background="#F8FAFF">
     <Window.Resources>
         <Style x:Key="SidebarButton" TargetType="Button">
             <Setter Property="Background" Value="#CCDCF8"/>

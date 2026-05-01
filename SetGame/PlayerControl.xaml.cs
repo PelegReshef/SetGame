@@ -72,11 +72,22 @@ namespace SetGame
             }
             return false;
         }
-        public static void ResetAllPlayers(PlayerControl[] players)
+        public static void ResetAllPlayers(PlayerControl[,] players)
         {
             foreach (PlayerControl pc in players)
             {
                 pc.SetPlayer(null);
+            }
+        }
+        public static void CreateNewPlayers(PlayerControl[,] playerBoard, Player[] players)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j  = 0; j < 2; j++)
+                {
+                    playerBoard[i % 2, i / 2].SetPlayer(players[i]);
+                    playerBoard[i % 2, i / 2].Show();
+                }
             }
         }
     }

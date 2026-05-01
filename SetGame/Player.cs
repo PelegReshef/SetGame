@@ -8,8 +8,8 @@ namespace SetGame
 {
     public class Player
     {
-        public string name;
-        public int points;
+        string name;
+        int points;
 
         public string GetName() { return name; }
         public int GetPoints() { return points; }
