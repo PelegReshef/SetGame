@@ -26,6 +26,7 @@ namespace SetGame
         }
         Card currentCard = null;
 
+
         public Card GetCard() { return currentCard; }
         private void Hide()
         {
@@ -37,6 +38,7 @@ namespace SetGame
         }
         private void ChangeCard(Card c)
         {
+            Unhighlight();
             cardStackPanel.Children.Clear();
             currentCard = c;
             if (c == null)
@@ -157,13 +159,16 @@ namespace SetGame
         public static void ArrangeCards(CardControl[,] board)
         {
             // find last cards on the board
-            List<Card> toReplace = new List<Card>();
+            List<CardControl> toReplace = new List<CardControl>();
             for (int i = 4; i >= 0; i--)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    toReplace.Add(board[j, i].currentCard);
-                    if (toReplace.Count == 3)
+                    if (board[j, i].currentCard != null)
+                    {
+                        toReplace.Add(board[j, i]);
+                    }
+                    if (toReplace.Count >= 3)
                     {
                         goto checkNewPositions;
 
@@ -174,23 +179,14 @@ namespace SetGame
             checkNewPositions:
             
             // find first valid spots for new positions for the cards
-            List<Card> potentialNewPositions = new List<Card>();
-            List<Card> newPositions = new List<Card>();
+            List<CardControl> newPositions = new List<CardControl>();
             for (int i = 0; i < 5; i++)
             {
                 for (int j =0; j < 3; j++)
                 {
-                    if (board[i, j].currentCard == null)
+                    if (board[j, i].currentCard == null)
                     {
-                        potentialNewPositions.Add(board[i, j].currentCard);
-                    }
-                    else
-                    {
-                        foreach (Card c in potentialNewPositions)
-                        {
-                            newPositions.Add(c);
-                        }
-                        potentialNewPositions.Clear();
+                        newPositions.Add(board[j, i]);
                     }
                     
                     if (newPositions.Count >= 3)
@@ -204,8 +200,8 @@ namespace SetGame
             // replace last cards with their new positions
             for (int i = 0; i < newPositions.Count; i++)
             {
-                FindByCard(board, newPositions[i]).ChangeCard(toReplace[i]);
-                FindByCard(board, toReplace[i]).DeleteCard();
+                newPositions[i].SetCard(toReplace[i].currentCard);
+                toReplace[i].DeleteCard();
             }
         }
         public static void AddNewCards(CardControl[,] board, Card[] cards)
@@ -215,7 +211,7 @@ namespace SetGame
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (board[j, i].GetCard() == null && cardsQueue.Count >= 1)
+                    if (board[j, i].currentCard == null && cardsQueue.Count >= 1)
                     {
                         board[j, i].SetCard(cardsQueue.Dequeue());
                     }

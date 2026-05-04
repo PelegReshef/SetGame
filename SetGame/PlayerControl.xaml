@@ -8,10 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Border BorderThickness="2" BorderBrush="Black" CornerRadius="10"
-                    Margin="10" Background="AliceBlue">
+                    Margin="10" Background="#FFB99AFF">
             <UniformGrid Columns="1">
-                <TextBlock x:Name="nameTB" FontSize="15"/>
-                <TextBlock x:Name="pointsTB" FontSize="15"/>
+                <TextBlock x:Name="nameTB" Style="{StaticResource TextblockStyle}"/>
+                <TextBlock x:Name="pointsTB" Style="{StaticResource TextblockStyle}"/>
             </UniformGrid>
         </Border>
     </Grid>

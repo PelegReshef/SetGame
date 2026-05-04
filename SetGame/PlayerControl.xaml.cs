@@ -53,7 +53,7 @@ namespace SetGame
         private void UpdateUi()
         {
             nameTB.Text = player != null ? player.GetName() : "";
-            pointsTB.Text = player != null ? player.GetPoints().ToString() : "";
+            pointsTB.Text = player != null ? $"Points: {player.GetPoints().ToString()}" : "";
         }
 
         /// <summary>

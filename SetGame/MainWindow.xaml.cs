@@ -157,46 +157,19 @@ namespace SetGame
 
                 // only need to add cards when there are 12 cards
                 // or less before finding the set
-                if (cardsCount <= 12)
+                if (cardsCount <= 12 && cards.Count <= 3)
                 {
-                    // add new cards in the place of the current set
                     List<Card> newCards = DrawCards(3);
                     CardControl.ReplaceCards(board, selectedCards.ToArray(), newCards.ToArray());
+                    
                 }
                 else
                 {
+                    CardControl.DeleteCards(board, selectedCards.ToArray());
                     CardControl.ArrangeCards(board);
-                    // pull the cards in the last row inside the first 4 rows
-                    //List<Point> positionsInside = new List<Point>();
-                    //List<Card> cardsOutside = new List<Card>();
-
-
-                    //for (int x = 0; x < 3; x++)
-                    //{
-                    //    if (!selectedCards.Contains(boardDisplay[x, 4]))
-                    //    {
-                    //        Card c = boardCards[x, 4];
-                    //        cardsOutside.Add(c);
-
-                    //    }
-                    //    DeleteCard(x, 4);
-                    //}
-                    //foreach(Border border in selectedCards)
-                    //{
-                    //    Point pos = (Point)border.Tag;
-                    //    if (pos.Y < 4)
-                    //    {
-                    //        positionsInside.Add(pos);
-                    //    }
-                    //}
-                    //for (int i = 0; i < cardsOutside.Count; i++)
-                    //{
-                    //    Point pos = positionsInside[i];
-                    //    SetCard(cardsOutside[i], (int)pos.X, (int)pos.Y);
-                    //}
-                    //cardsCount -= 3;
-
+                    cardsCount -= 3;
                 }
+                
             }
             else
             {
@@ -284,21 +257,6 @@ namespace SetGame
 
         }
 
-        //void AddNewCards(List<Point> positions)
-        //{
-        //    foreach(Point p in positions)
-        //    {
-        //        int x = (int)p.X;
-        //        int y = (int)p.Y;
-
-        //        int index = rnd.Next(0, cards.Count);
-        //        Card c = cards[index];
-
-        //        SetCard(c, x, y);
-        //        cards.Remove(c);
-                
-        //    }
-        //}
 
         /// <summary>
         /// get a list of new cards that were
@@ -355,20 +313,6 @@ namespace SetGame
             //start game with 12 cards
             List<Card> newCards = DrawCards(12);
             CardControl.AddNewCards(board, newCards.ToArray());
-
-            //for (int x = 0; x < 3; x++)
-            //{
-            //    for (int y = 0; y < 4; y++) // game starts with 12 cards open
-            //    {
-            //        int index = rnd.Next(0, cards.Count);
-            //        Card c = cards[index];
-            //        boardCards[x, y] = c;
-            //        boardDisplay[x, y].Child = RenderCard(c, x, y);
-            //        boardDisplay[x, y].Visibility = Visibility.Visible;
-            //        cards.Remove(c);
-
-            //    }
-            //}
         }
 
         private void newGameBtn_Click(object sender, RoutedEventArgs e)
