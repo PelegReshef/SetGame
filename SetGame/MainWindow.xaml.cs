@@ -46,6 +46,10 @@ namespace SetGame
         // cards currently selected by user (up to 3)
         List<Card> selectedCards = new List<Card>();
 
+        int playersCount = 0;
+
+        bool isGameActive = false;
+
 
         /// <summary>
         /// initialize the board variable with a new CardControl 2D array
@@ -272,16 +276,36 @@ namespace SetGame
             {
                 return;
             }
+            playersCount = players.Count;
 
             PlayerControl.CreateNewPlayers(playerBoard, players.ToArray());
+            CardControl.HideBoard(board);
             CardControl.ResetBoard(board);
-            cardsCount = 12;
 
             cards = CreateAllCardsList();
 
             //start game with 12 cards
+            cardsCount = 12;
             List<Card> newCards = DrawCards(12);
             CardControl.AddNewCards(board, newCards.ToArray());
+
+            isGameActive = true;
+        }
+        void EndGame()
+        {
+            if (!isGameActive)
+            {
+                return;
+            }
+            isGameActive = false;
+            foreach (PlayerControl pc in playersGrid.Children)
+            {
+                if (pc.GetPlayer() is Player p)
+                {
+                    string sqlStr = $"INSERT INTO PlayersTable (PlayerName, PlayerScore, PlayersAmount, [Time]) VALUES ('{p.GetName()}', {p.GetPoints()}, {playersCount}, '{DateTime.Now}')";
+                    DAL.ExecuteNonQuery(sqlStr);
+                }
+            }
         }
 
         private void newGameBtn_Click(object sender, RoutedEventArgs e)
@@ -291,7 +315,7 @@ namespace SetGame
 
         private void ThreeCardsBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (cardsCount > 12)
+            if (cardsCount > 12 || isGameActive == false)
             {
                 return;
             }
@@ -300,5 +324,9 @@ namespace SetGame
             
         }
 
+        private void EndGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            EndGame();
+        }
     }
 }

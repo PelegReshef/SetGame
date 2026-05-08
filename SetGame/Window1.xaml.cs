@@ -27,10 +27,13 @@ namespace SetGame
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
             names.Add(Player1Box.Text);
             names.Add(Player2Box.Text);
             names.Add(Player3Box.Text);
             names.Add(Player4Box.Text);
+
+            names.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
             DialogResult = true;
         }

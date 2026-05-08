@@ -100,7 +100,7 @@
 
                     <Button Style="{StaticResource SidebarButton}"
                             Content="Open 3 cards" FontSize="17" Click="ThreeCardsBtn_Click"/>
-                    <Button Style="{StaticResource SidebarButton}"
+                    <Button Style="{StaticResource SidebarButton}" Click="EndGameButton_Click"
                             Content="End game" FontSize="17" Grid.Column="1"/>
 
                 </Grid>
@@ -113,7 +113,7 @@
                     BorderThickness="1"
                     Padding="5"
                     Grid.Row="2">
-                    <TextBlock x:Name="outputTBlock"  Text="Welcome! Press on new game to start playing." Style="{StaticResource TextblockStyle}" Foreground="#444444"/>
+                    <TextBlock x:Name="outputTBlock"  Text="Press on new game to start playing." Style="{StaticResource TextblockStyle}" Foreground="#444444"/>
                 </Border>
 
                 <Grid Grid.Row="4" x:Name="playersGrid">

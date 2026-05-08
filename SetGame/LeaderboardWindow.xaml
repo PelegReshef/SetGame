@@ -1,0 +1,24 @@
+﻿<Window x:Class="SetGame.LeaderboardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SetGame"
+        mc:Ignorable="d"
+        Title="LeaderboardWindow" Height="450" Width="800">
+    <Grid>
+        <ScrollViewer BorderBrush="Transparent">
+            <ListView x:Name="leaderboard" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PlayerName}" Header="Name"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PlayerScore}" Header="Score"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PlayersAmount}" Header="Players participating"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Time}" Header="Date"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </ScrollViewer>
+    </Grid>
+</Window>
