@@ -81,13 +81,10 @@ namespace SetGame
         }
         public static void CreateNewPlayers(PlayerControl[,] playerBoard, Player[] players)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 4; i++)
             {
-                for (int j  = 0; j < 2; j++)
-                {
-                    playerBoard[i % 2, i / 2].SetPlayer(players[i]);
-                    playerBoard[i % 2, i / 2].Show();
-                }
+                playerBoard[i % 2, i / 2].SetPlayer(players[i]);
+                playerBoard[i % 2, i / 2].Show();
             }
         }
     }

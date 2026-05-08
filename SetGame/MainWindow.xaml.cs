@@ -27,8 +27,8 @@ namespace SetGame
             InitBoard();
             InitPlayers();
             CardControl.HideBoard(board);
-
         }
+
         Random rnd = new Random();
 
         // represents the game board
@@ -81,45 +81,6 @@ namespace SetGame
                 pc.Hide();
                 playersGrid.Children.Add(pc);
                 playerBoard[i % 2, i / 2] = pc;
-
-                //if (string.IsNullOrWhiteSpace(players[i]))
-                //{
-                //    continue;
-                //}
-                //Border pc = new Border()
-                //{
-                //    BorderThickness = new Thickness(2),
-                //    BorderBrush = new SolidColorBrush(Colors.Black),
-                //    CornerRadius = new CornerRadius(10),
-                //    Margin = new Thickness(10),
-                    
-                //};
-                //Grid.SetRow(pc, i / 2);
-                //Grid.SetColumn(pc, i % 2);
-                //pc.MouseDown += PlayerBorder_MouseButton;
-
-                //Grid g = new Grid();
-                //g.RowDefinitions.Add(new RowDefinition());
-                //g.RowDefinitions.Add(new RowDefinition());
-
-                //TextBlock tb1 = new TextBlock()
-                //{
-                //    Text = $"Name: {players[i]}",
-                //    FontSize = 15
-                //};
-                //TextBlock tb2 = new TextBlock()
-                //{
-                //    FontSize = 15
-                //};
-                //int points = 0;
-                //tb2.Tag = points;
-                //tb2.Text = $"Points: {points}";
-                //Grid.SetRow(tb2, 1);
-                //g.Children.Add(tb1);
-                //g.Children.Add(tb2);
-                //pc.Child = g;
-                //pc.Tag = (tb2, players[i]);
-
             }
         }
 
@@ -157,11 +118,10 @@ namespace SetGame
 
                 // only need to add cards when there are 12 cards
                 // or less before finding the set
-                if (cardsCount <= 12 && cards.Count <= 3)
+                if (cardsCount <= 12 && cards.Count >= 3)
                 {
                     List<Card> newCards = DrawCards(3);
                     CardControl.ReplaceCards(board, selectedCards.ToArray(), newCards.ToArray());
-                    
                 }
                 else
                 {
@@ -264,6 +224,10 @@ namespace SetGame
         /// </summary>
         List<Card> DrawCards(int amount)
         {
+            if (cards.Count <= 0)
+            {
+                return new List<Card>();
+            }
             List<Card> ret = new List<Card>();
             for (int i = 0; i < amount ; i++)
             {
@@ -304,6 +268,11 @@ namespace SetGame
         void NewGame()
         {
             var players = CreatePlayersList();
+            if (!players.Any())
+            {
+                return;
+            }
+
             PlayerControl.CreateNewPlayers(playerBoard, players.ToArray());
             CardControl.ResetBoard(board);
             cardsCount = 12;

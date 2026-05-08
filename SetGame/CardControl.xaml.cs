@@ -118,6 +118,18 @@ namespace SetGame
             Hide();
 
         }
+        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.Cursor = Cursors.Hand;
+            cardBorder.RenderTransform = new ScaleTransform(0.995, 0.995);
+        }
+
+        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.Cursor = Cursors.Arrow;
+            cardBorder.RenderTransform = new ScaleTransform(1, 1);
+        }
+
         public static void ResetBoard(CardControl[,] board)
         {
             foreach (var cc in board)
@@ -159,49 +171,74 @@ namespace SetGame
         public static void ArrangeCards(CardControl[,] board)
         {
             // find last cards on the board
-            List<CardControl> toReplace = new List<CardControl>();
-            for (int i = 4; i >= 0; i--)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    if (board[j, i].currentCard != null)
-                    {
-                        toReplace.Add(board[j, i]);
-                    }
-                    if (toReplace.Count >= 3)
-                    {
-                        goto checkNewPositions;
+            var toReplace = GetCardsToReplace();
 
-                    }
-                }
-            }
-
-            checkNewPositions:
-            
             // find first valid spots for new positions for the cards
-            List<CardControl> newPositions = new List<CardControl>();
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j =0; j < 3; j++)
-                {
-                    if (board[j, i].currentCard == null)
-                    {
-                        newPositions.Add(board[j, i]);
-                    }
-                    
-                    if (newPositions.Count >= 3)
-                    {
-                        goto replace;
-                    }
-                }
-            }
-            
-            replace:
+            var newPositions = GetNewPositions();
+
             // replace last cards with their new positions
             for (int i = 0; i < newPositions.Count; i++)
             {
+                int oldX = Grid.GetColumn(toReplace[i]); 
+                int oldY = Grid.GetRow(toReplace[i]);
+
+                int newX = Grid.GetColumn(newPositions[i]);
+                int newY = Grid.GetRow(newPositions[i]);
+
+                // keep replacing only if the new position is earlier 
+                // on the board than the old position
+                if ((oldY < newY) || (oldY == newY && oldX >= newX))
+                {
+                    return;
+                }
                 newPositions[i].SetCard(toReplace[i].currentCard);
                 toReplace[i].DeleteCard();
+            }
+
+
+
+
+            List<CardControl> GetCardsToReplace()
+            {
+                List<CardControl> ret = new List<CardControl>();
+                for (int y = 4; y >= 0; y--)
+                {
+                    // this loop goes from zero because I want the cards 
+                    // to get arranged towards the left side of the board
+                    for (int x = 0; x < 3; x++)
+                    {
+                        if (board[x, y].currentCard != null)
+                        {
+                            ret.Add(board[x, y]);
+                        }
+                        if (ret.Count >= 3)
+                        {
+                            return ret;
+                        }
+                    }
+                }
+                return ret;
+            }
+
+            List<CardControl> GetNewPositions()
+            {
+                List<CardControl> ret = new List<CardControl>();
+                for (int y = 0; y < 5; y++)
+                {
+                    for (int x = 0; x < 3; x++)
+                    {
+                        if (board[x, y].currentCard == null)
+                        {
+                            ret.Add(board[x, y]);
+                        }
+
+                        if (ret.Count >= 3)
+                        {
+                            return ret;
+                        }
+                    }
+                }
+                return ret;
             }
         }
         public static void AddNewCards(CardControl[,] board, Card[] cards)
@@ -249,5 +286,6 @@ namespace SetGame
             }
             return success;
         }
+
     }
 }

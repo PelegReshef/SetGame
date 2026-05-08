@@ -1,24 +1,22 @@
-﻿
-
-<Window x:Class="SetGame.MainWindow"
+﻿<Window x:Class="SetGame.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SetGame"
         mc:Ignorable="d"
-        Title="Set" Height="450" Width="800" 
-        Background="#F8FAFF">
+        Title="Set" Height="450" Width="800" WindowState="Maximized"
+        Background="#e2e6e9">
     <Window.Resources>
-        
-        
+
+
         <Geometry x:Key="Squiggle">
             m 2.3436639,0.01967282
             c 4.535618,-0.39633 6.206799,5.32337298 6.244084,5.64773998 0,0 0.191624,0.501305 -0.105235,2.525696 -0.138127,0.941942 -0.450792,1.545904 -0.537879,3.0168052 -0.108982,1.840696 1.240071,2.199247 1.438243,4.396585 0.07048,0.781532 -0.5816,1.680328 -1.344699,1.96443 -1.453331,0.541075 -3.555166,0.146919 -3.952249,0.07016 -0.628982,-0.121587 -1.52069,-0.433814 -2.338607,-1.251154 -0.76740905,-0.766868 -0.546591,-0.575494 -1.02898805,-1.824114 -0.46423,-1.201597 -0.215364,-2.505812 -0.03508,-3.484528
             C 1.0762419,8.9478628 2.0027969,7.8840068 1.9694859,6.8834908 1.9365059,5.8928918 1.4670809,5.0264378 1.1743599,4.3227168 0.70594185,3.1966078 -0.20129315,2.7392708 0.04013685,1.7151688 0.45746685,-0.05507218 1.8069269,0.06657382 2.3436639,0.01967282
             Z
         </Geometry>
-            
+
         <Geometry x:Key="Capsule">
             m 0.01419259,5.0013676
             c 0,0 -0.33015,-5.0013676 5.51206951,-5.0013676 5.8422189,0 5.5729339,5.0598326 5.5729339,5.0598326
@@ -34,7 +32,7 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/> 
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -68,20 +66,31 @@
                     </StackPanel>
                 </Viewbox>
             </Border>-->
-                
+
         </Grid>
-        <Border BorderBrush="#CCDCF8" BorderThickness="3" Grid.Row="0" Grid.Column="1" Background="#EFFCFF">
+        <Border BorderThickness="3" Grid.Row="0" Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="1,0" SpreadMethod="Repeat">
+                    <GradientStop Color="#AF1DA8EA" Offset="0"/>
+                    <GradientStop Color="#AFE1D0FB" Offset="0.85"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="1,0" SpreadMethod="Repeat">
+                    <GradientStop Color="#AF4B9FC7"/>
+                    <GradientStop Color="#AFB9ABCE" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
             <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="1.15*"/>
                     <RowDefinition Height="2.7*"/>
                 </Grid.RowDefinitions>
 
                 <Button x:Name="newGameBtn"  Content="New game" 
-                        Style="{StaticResource SidebarButton}" Click="newGameBtn_Click" />
+                        Style="{StaticResource SidebarButton}" Click="newGameBtn_Click" Opacity="1" /> 
 
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -90,17 +99,21 @@
                     </Grid.ColumnDefinitions>
 
                     <Button Style="{StaticResource SidebarButton}"
-                            Content="Open 3 cards" FontSize="17"
-                            Click="ThreeCardsBtn_Click"/>
+                            Content="Open 3 cards" FontSize="17" Click="ThreeCardsBtn_Click"/>
                     <Button Style="{StaticResource SidebarButton}"
-                            Content="End game" FontSize="17"
-                            Grid.Column="1"/>
+                            Content="End game" FontSize="17" Grid.Column="1"/>
 
                 </Grid>
-                
+
                 <!--added border for vertical alignment-->
-                <Border Background="#FFEAF2FF" Grid.Row="2" Margin="10" BorderBrush="#404040" BorderThickness="1">
-                    <TextBlock x:Name="outputTBlock"  Text="hello" Style="{StaticResource TextblockStyle}"/>
+                <Border Background="#ccF8F8F8"
+                    CornerRadius="8"
+                    Margin="8"
+                    BorderBrush="#22000000"
+                    BorderThickness="1"
+                    Padding="5"
+                    Grid.Row="2">
+                    <TextBlock x:Name="outputTBlock"  Text="Welcome! Press on new game to start playing." Style="{StaticResource TextblockStyle}" Foreground="#444444"/>
                 </Border>
 
                 <Grid Grid.Row="4" x:Name="playersGrid">

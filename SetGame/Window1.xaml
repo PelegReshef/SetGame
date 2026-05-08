@@ -5,45 +5,81 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SetGame"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Window1" Height="450" Width="800" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <Style x:Key="InputBox" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="#88FFAAAA"/>
+            <Setter Property="BorderBrush" Value="#440000"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Margin" Value="0,15,0,0"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Background" Value="#000000"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF0000"/>
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black"/>
+            <GradientStop Color="#FF8C2D2D" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Margin="20" Grid.Column="1">
+        <!-- Center card -->
+        <Border Background="#66884444" CornerRadius="12" Padding="20" Width="320" BorderThickness="1"
+                HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="#22000000" >
 
-            <TextBlock Text="Enter player names:"
-                   FontSize="25"
-                   Margin="0,0,0,15"
-                   HorizontalAlignment="Center"/>
+            <StackPanel>
 
-            <StackPanel Margin="5">
-                <TextBlock Text="Player 1" FontSize="16"/>
-                <TextBox x:Name="Player1Box" FontSize="16"/>
+                <!-- Title -->
+                <TextBlock Text="New Game"
+                           FontSize="26"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10"
+                           Foreground="White"/>
+
+                <TextBlock Text="Enter player names"
+                           FontSize="14"
+                           Foreground="#aaa"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,15"/>
+
+                <!-- Players -->
+                <StackPanel>
+
+                    <TextBox x:Name="Player1Box"
+                             Style="{StaticResource InputBox}"
+                             />
+
+                    <TextBox x:Name="Player2Box"
+                             Style="{StaticResource InputBox}"
+                             />
+
+                    <TextBox x:Name="Player3Box"
+                             Style="{StaticResource InputBox}"
+                             />
+
+                    <TextBox x:Name="Player4Box"
+                             Style="{StaticResource InputBox}"
+                             />
+
+                </StackPanel>
+
+                <!-- Button -->
+                <Button Content="Start Game"
+                        Style="{StaticResource PrimaryButton}"
+                        Click="Button_Click"/>
+
             </StackPanel>
-
-            <StackPanel Margin="5">
-                <TextBlock Text="Player 2" FontSize="16"/>
-                <TextBox x:Name="Player2Box" FontSize="16"/>
-            </StackPanel>
-
-            <StackPanel Margin="5">
-                <TextBlock Text="Player 3" FontSize="16"/>
-                <TextBox x:Name="Player3Box" FontSize="16"/>
-            </StackPanel>
-
-            <StackPanel Margin="5">
-                <TextBlock Text="Player 4" FontSize="16"/>
-                <TextBox x:Name="Player4Box" FontSize="16"/>
-            </StackPanel>
-
-            <Button Content="Start Game"
-                Margin="15"
-                FontSize="20"
-                Click="Button_Click"/>
-
-        </StackPanel>
+        </Border>
     </Grid>
 </Window>

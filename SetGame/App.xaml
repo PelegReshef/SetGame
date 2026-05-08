@@ -5,14 +5,16 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <Style x:Key="SidebarButton" TargetType="Button">
-            <Setter Property="Background" Value="#CCDCF8"/>
+            <Setter Property="Background" Value="#74ffffff"/>
+            <Setter Property="BorderBrush" Value="#33000000"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontSize" Value="25"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="8"/>
         </Style>
         <Style x:Key="TextblockStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
