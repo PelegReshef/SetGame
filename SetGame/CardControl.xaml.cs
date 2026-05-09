@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -23,6 +24,7 @@ namespace SetGame
         public CardControl()
         {
             InitializeComponent();
+            this.cardBorder.RenderTransform = new ScaleTransform(1, 1);
         }
         Card currentCard = null;
 
@@ -120,14 +122,25 @@ namespace SetGame
         }
         private void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
-            this.Cursor = Cursors.Hand;
-            cardBorder.RenderTransform = new ScaleTransform(0.995, 0.995);
+            Cursor = Cursors.Hand;
+            DoubleAnimation da = new DoubleAnimation();
+            da.To = 1.06;
+            da.Duration = TimeSpan.FromMilliseconds(450);
+            da.EasingFunction = new BounceEase();
+            cardBorder.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, da);
+            cardBorder.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, da);
         }
 
         private void UserControl_MouseLeave(object sender, MouseEventArgs e)
         {
-            this.Cursor = Cursors.Arrow;
-            cardBorder.RenderTransform = new ScaleTransform(1, 1);
+            Cursor = Cursors.Arrow;
+            DoubleAnimation da = new DoubleAnimation();
+            da.To = 1;
+            da.Duration = TimeSpan.FromMilliseconds(350);
+            da.EasingFunction = new QuadraticEase();
+            cardBorder.RenderTransform.BeginAnimation(ScaleTransform.ScaleXProperty, da);
+            cardBorder.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, da);
+
         }
 
         public static void ResetBoard(CardControl[,] board)

@@ -22,6 +22,8 @@ namespace SetGame
         public LeaderboardWindow()
         {
             InitializeComponent();
+            var dv = DAL.GetDataView("SELECT * From PlayersTable ORDER BY PlayerScore DESC");
+            this.leaderboard.ItemsSource = dv;
         }
     }
 }

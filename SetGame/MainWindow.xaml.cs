@@ -306,6 +306,8 @@ namespace SetGame
                     DAL.ExecuteNonQuery(sqlStr);
                 }
             }
+            LeaderboardWindow win = new LeaderboardWindow();
+            win.ShowDialog();
         }
 
         private void newGameBtn_Click(object sender, RoutedEventArgs e)

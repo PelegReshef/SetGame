@@ -5,20 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SetGame"
         mc:Ignorable="d"
-        Title="LeaderboardWindow" Height="450" Width="800">
+        Title="LeaderboardWindow" Height="450" Width="800" Background="#2b2d2f" ResizeMode="CanMinimize">
     <Grid>
-        <ScrollViewer BorderBrush="Transparent">
-            <ListView x:Name="leaderboard" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PlayerName}" Header="Name"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PlayerScore}" Header="Score"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PlayersAmount}" Header="Players participating"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Time}" Header="Date"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
 
-        </ScrollViewer>
+        <TextBlock Text="Leaderboard" FontSize="45" VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" FontWeight="Bold" Foreground="#EEEEEE"/>
+
+
+        <ListView x:Name="leaderboard" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="1" 
+                    Margin="30" FontSize="20" BorderBrush="Transparent" Background="#2b2d2f"
+                  ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PlayerName}" Header="Name"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PlayerScore}" Header="Score"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=PlayersAmount}" Header="Players participating"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Time}" Header="Date"/>
+                </GridView>
+            </ListView.View>
+            <ListView.Resources>
+
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Background" Value="#4b5d6f"/>
+                    <Setter Property="Foreground" Value="#eeeeee"/>
+                    <Setter Property="Padding" Value="8"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="#4b4d4f"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#cfcfcf"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+
+                    <Style.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#5b5d5f"/>
+                        </Trigger>
+
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#4b4d4f"/>
+                            <Setter Property="Foreground" Value="#cfcfcf"/>
+                        </Trigger>
+
+                    </Style.Triggers>
+
+
+                </Style>
+
+            </ListView.Resources>
+        </ListView>
+
     </Grid>
 </Window>

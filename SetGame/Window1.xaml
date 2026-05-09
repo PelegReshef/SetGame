@@ -5,81 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SetGame"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800" ResizeMode="CanMinimize">
+        Title="Window1" Height="450" Width="800" ResizeMode="CanMinimize" Background="#2b2d2f">
     <Window.Resources>
-        <Style x:Key="InputBox" TargetType="TextBox">
-            <Setter Property="Margin" Value="0,5"/>
-            <Setter Property="Padding" Value="8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Background" Value="#88FFAAAA"/>
-            <Setter Property="BorderBrush" Value="#440000"/>
-            <Setter Property="BorderThickness" Value="1"/>
-        </Style>
-        <Style x:Key="PrimaryButton" TargetType="Button">
-            <Setter Property="Margin" Value="0,15,0,0"/>
-            <Setter Property="Padding" Value="10"/>
+        <Style  TargetType="TextBox">
+            <Setter Property="Margin" Value="20"/>
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Background" Value="#000000"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#FF0000"/>
+            <Setter Property="Background" Value="#4A4D50"/>
+            <Setter Property="BorderBrush" Value="#558888ff"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#cfcfcf"/>
         </Style>
     </Window.Resources>
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="Black"/>
-            <GradientStop Color="#FF8C2D2D" Offset="1"/>
-        </LinearGradientBrush>
-    </Window.Background>
 
     <Grid>
-        <!-- Center card -->
-        <Border Background="#66884444" CornerRadius="12" Padding="20" Width="320" BorderThickness="1"
-                HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="#22000000" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="1.2*"/>
+        </Grid.RowDefinitions>
+        
 
-            <StackPanel>
+        <TextBlock Text="Enter player names:" FontSize="32" FontWeight="SemiBold" Grid.ColumnSpan="2"
+                    Foreground="#cfcfcf" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>
 
-                <!-- Title -->
-                <TextBlock Text="New Game"
-                           FontSize="26"
-                           FontWeight="SemiBold"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,10"
-                           Foreground="White"/>
 
-                <TextBlock Text="Enter player names"
-                           FontSize="14"
-                           Foreground="#aaa"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,15"/>
+        <TextBox x:Name="Player1Box" Grid.Row="1" Grid.Column="0"/>
+        <TextBox x:Name="Player2Box" Grid.Row="1" Grid.Column="1"/>
+        <TextBox x:Name="Player3Box" Grid.Row="2" Grid.Column="0"/>
+        <TextBox x:Name="Player4Box" Grid.Row="2" Grid.Column="1"/>
 
-                <!-- Players -->
-                <StackPanel>
 
-                    <TextBox x:Name="Player1Box"
-                             Style="{StaticResource InputBox}"
-                             />
+        <Button Content="Start" Margin="0, 20, 0, 20" Padding="60 , 0 ,60 ,0 " FontSize="24" Grid.Row="3" Grid.ColumnSpan="2"
+                FontWeight="SemiBold" Background="#6f7f8f" Foreground="#eeeeee" HorizontalAlignment="Center"
+                Click="Button_Click" BorderBrush="#558888ff"/>
 
-                    <TextBox x:Name="Player2Box"
-                             Style="{StaticResource InputBox}"
-                             />
-
-                    <TextBox x:Name="Player3Box"
-                             Style="{StaticResource InputBox}"
-                             />
-
-                    <TextBox x:Name="Player4Box"
-                             Style="{StaticResource InputBox}"
-                             />
-
-                </StackPanel>
-
-                <!-- Button -->
-                <Button Content="Start Game"
-                        Style="{StaticResource PrimaryButton}"
-                        Click="Button_Click"/>
-
-            </StackPanel>
-        </Border>
     </Grid>
 </Window>
