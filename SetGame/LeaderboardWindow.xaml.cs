@@ -25,5 +25,10 @@ namespace SetGame
             var dv = DAL.GetDataView("SELECT * From PlayersTable ORDER BY PlayerScore DESC");
             this.leaderboard.ItemsSource = dv;
         }
+
+        public void FilterBy(string column, string order)
+        {
+            var dv = DAL.GetDataView($"SELECT * FROM PlayersTable ORDER BY {column} {order}");
+        }
     }
 }

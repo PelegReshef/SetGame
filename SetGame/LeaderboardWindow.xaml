@@ -9,14 +9,20 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition Height="0.7*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Leaderboard" FontSize="45" VerticalAlignment="Center" 
+        <TextBlock Text="Leaderboard" FontSize="45" VerticalAlignment="Bottom" 
                    HorizontalAlignment="Center" FontWeight="Bold" Foreground="#EEEEEE"/>
 
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="Filter:" FontSize="22" Foreground="#cfcfcf" VerticalAlignment="Center" Margin="10"/>
+            <ComboBox Margin="10"/>
+            <ComboBox Margin="10"/>
+        </StackPanel>
 
-        <ListView x:Name="leaderboard" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="1" 
+        <ListView x:Name="leaderboard" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="2" 
                     Margin="30" FontSize="20" BorderBrush="Transparent" Background="#2b2d2f"
                   ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <ListView.View>
