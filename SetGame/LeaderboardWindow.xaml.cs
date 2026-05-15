@@ -29,6 +29,37 @@ namespace SetGame
         public void FilterBy(string column, string order)
         {
             var dv = DAL.GetDataView($"SELECT * FROM PlayersTable ORDER BY {column} {order}");
+            if (this.leaderboard != null)
+            {
+                this.leaderboard.ItemsSource = dv;
+            }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var cb = (ComboBox)sender;
+
+            switch (cb.SelectedIndex)
+            {
+                case 0:
+                    FilterBy("PlayerName", "ASC");
+                    break;
+                case 1:
+                    FilterBy("PlayerName", "DESC");
+                    break;
+                case 2:
+                    FilterBy("PlayerScore", "DESC");
+                    break;
+                case 3:
+                    FilterBy("PlayerScore", "ASC");
+                    break;
+                case 4:
+                    FilterBy("Time", "DESC");
+                    break;
+                case 5:
+                    FilterBy("Time", "ASC");
+                    break;
+            }
         }
     }
 }
