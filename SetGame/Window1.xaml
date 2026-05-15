@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SetGame"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800" ResizeMode="CanMinimize" Background="#2b2d2f">
+        Title="Window1" Height="450" Width="800" ResizeMode="CanMinimize">
     <Window.Resources>
         <Style  TargetType="TextBox">
             <Setter Property="Margin" Value="20"/>
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Background" Value="#4A4D50"/>
+            <Setter Property="Background" Value="#887A7D80"/>
             <Setter Property="BorderBrush" Value="#558888ff"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Medium"/>
@@ -18,6 +18,12 @@
             <Setter Property="Foreground" Value="#cfcfcf"/>
         </Style>
     </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF214A52"/>
+            <GradientStop Color="#FF2B2D2F" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -30,7 +36,7 @@
             <RowDefinition/>
             <RowDefinition Height="1.2*"/>
         </Grid.RowDefinitions>
-        
+
 
         <TextBlock Text="Enter player names:" FontSize="32" FontWeight="SemiBold" Grid.ColumnSpan="2"
                     Foreground="#cfcfcf" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>
@@ -43,7 +49,7 @@
 
 
         <Button Content="Start" Margin="0, 20, 0, 20" Padding="60 , 0 ,60 ,0 " FontSize="24" Grid.Row="3" Grid.ColumnSpan="2"
-                FontWeight="SemiBold" Background="#6f7f8f" Foreground="#eeeeee" HorizontalAlignment="Center"
+                FontWeight="SemiBold" Background="#889fcfbf" Foreground="#eeeeee" HorizontalAlignment="Center"
                 Click="Button_Click" BorderBrush="#558888ff"/>
 
     </Grid>
