@@ -132,6 +132,11 @@ namespace SetGame
                     CardControl.DeleteCards(board, selectedCards.ToArray());
                     CardControl.ArrangeCards(board);
                     cardsCount -= 3;
+
+                    if (cardsCount <= 0)
+                    {
+                        outputTBlock.Text = "Game is finished! \nPress on End game to see your scores on the leaderboard.";
+                    }
                 }
                 
             }
