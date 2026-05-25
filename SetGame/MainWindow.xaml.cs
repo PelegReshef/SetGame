@@ -92,8 +92,8 @@ namespace SetGame
         {
             List<Player> ret = new List<Player>();
             Window1 win = new Window1();
-            //win.DialogResult = win.ShowDialog();
-            if (win.ShowDialog().Value)
+            
+            if (win.ShowDialog() == true)
             {
                 foreach (string name in win.names)
                 {
@@ -140,6 +140,7 @@ namespace SetGame
                 outputTBlock.Text = "Oops! Not a Set";
             }
             ResetCardSelction();
+            cardsLeftTBlock.Text = cards.Count.ToString();
 
         }
 
@@ -283,6 +284,7 @@ namespace SetGame
             CardControl.ResetBoard(board);
 
             cards = CreateAllCardsList();
+            cardsLeftTBlock.Text = cards.Count.ToString();
 
             //start game with 12 cards
             cardsCount = 12;

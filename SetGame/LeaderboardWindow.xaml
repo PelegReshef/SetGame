@@ -17,9 +17,19 @@
                    HorizontalAlignment="Center" FontWeight="Bold" Foreground="#EEEEEE"/>
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
-            <TextBlock Text="Filter:" FontSize="22" Foreground="#cfcfcf" VerticalAlignment="Center" Margin="10"/>
-            <ComboBox Margin="10"/>
-            <ComboBox Margin="10"/>
+            
+            <TextBlock Text="Filter By:" FontSize="22" Foreground="#cfcfcf" 
+                       VerticalAlignment="Center" Margin="10" FontWeight="Medium"/>
+            
+            <ComboBox Margin="10" Width="150" VerticalContentAlignment="Center" FontSize="16"
+                      SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="2">
+                <ComboBoxItem Content="A - Z"/>
+                <ComboBoxItem Content="Z - A"/>
+                <ComboBoxItem Content="Highest score"/>
+                <ComboBoxItem Content="Lowest score"/>
+                <ComboBoxItem Content="Newest"/>
+                <ComboBoxItem Content="Oldest"/>
+            </ComboBox>
         </StackPanel>
 
         <ListView x:Name="leaderboard" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="2" 
