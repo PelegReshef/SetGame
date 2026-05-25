@@ -27,7 +27,7 @@ namespace SetGame
             this.cardBorder.RenderTransform = new ScaleTransform(1, 1);
         }
         Card currentCard = null;
-
+        bool IsDisabled = false;
 
         public Card GetCard() { return currentCard; }
         private void Hide()
@@ -37,6 +37,14 @@ namespace SetGame
         private void Show()
         {
             this.Visibility = Visibility.Visible;
+        }
+        public void Disable()
+        {
+            this.IsDisabled = true;
+        }
+        public void Enable()
+        {
+            this.IsDisabled = false;
         }
         private void ChangeCard(Card c)
         {
@@ -122,6 +130,8 @@ namespace SetGame
         }
         private void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
+            if (IsDisabled) return;
+
             Cursor = Cursors.Hand;
             DoubleAnimation da = new DoubleAnimation();
             da.To = 1.06;
@@ -133,6 +143,8 @@ namespace SetGame
 
         private void UserControl_MouseLeave(object sender, MouseEventArgs e)
         {
+            if (IsDisabled) return;
+
             Cursor = Cursors.Arrow;
             DoubleAnimation da = new DoubleAnimation();
             da.To = 1;
@@ -163,6 +175,20 @@ namespace SetGame
             foreach (var cc in board)
             {
                 cc.Hide();
+            }
+        }
+        public static void DisableBoard(CardControl[,] board)
+        {
+            foreach (var cc in board)
+            {
+                cc.Disable();
+            }
+        }
+        public static void EnableBoard(CardControl[,] board)
+        {
+            foreach (var cc in board)
+            {
+                cc.Enable();
             }
         }
 

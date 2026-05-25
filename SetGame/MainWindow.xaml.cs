@@ -157,7 +157,10 @@ namespace SetGame
         public void CardControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
             CardControl cc = (CardControl)sender;
-
+            if (!isGameActive)
+            {
+                return;  
+            }
             // if the card was already selected,
             // deselect it and update list
             if (selectedCards.Contains(cc.GetCard()))
@@ -296,6 +299,7 @@ namespace SetGame
             CardControl.AddNewCards(board, newCards.ToArray());
 
             cardsLeftTBlock.Text = "Cards Left: " + cards.Count.ToString();
+            CardControl.EnableBoard(board);
             isGameActive = true;
         }
         void EndGame()
@@ -305,14 +309,22 @@ namespace SetGame
                 return;
             }
             isGameActive = false;
-            foreach (PlayerControl pc in playersGrid.Children)
+            try
             {
-                if (pc.GetPlayer() is Player p)
+                foreach (PlayerControl pc in playersGrid.Children)
                 {
-                    string sqlStr = $"INSERT INTO PlayersTable (PlayerName, PlayerScore, PlayersAmount, [Time]) VALUES ('{p.GetName()}', {p.GetPoints()}, {playersCount}, '{DateTime.Now}')";
-                    DAL.ExecuteNonQuery(sqlStr);
+                    if (pc.GetPlayer() is Player p)
+                    {
+                        string sqlStr = $"INSERT INTO PlayersTable (PlayerName, PlayerScore, PlayersAmount, [Time]) VALUES ('{p.GetName()}', {p.GetPoints()}, {playersCount}, '{DateTime.Now}')";
+                        DAL.ExecuteNonQuery(sqlStr);
+                    }
                 }
             }
+            catch
+            {
+                MessageBox.Show("There is an error trying to update your score. The leaderboard will not contain your score.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            CardControl.DisableBoard(board);
             LeaderboardWindow win = new LeaderboardWindow();
             win.ShowDialog();
         }
