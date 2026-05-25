@@ -11,6 +11,7 @@
             <Setter Property="Margin" Value="20"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Background" Value="#884A4D50"/>
+            <Setter Property="Background" Value="#887A7D80"/>
             <Setter Property="BorderBrush" Value="#558888ff"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Medium"/>
@@ -22,6 +23,8 @@
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF062D52"/>
             <GradientStop Color="#FF35385F" Offset="1"/>
+            <GradientStop Color="#FF214A52"/>
+            <GradientStop Color="#FF2B2D2F" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
 
@@ -50,6 +53,7 @@
 
         <Button Content="Start" Margin="0, 20, 0, 20" Padding="60 , 0 ,60 ,0 " FontSize="24" Grid.Row="3" Grid.ColumnSpan="2"
                 FontWeight="SemiBold" Background="#886f7f8f" Foreground="#eeeeee" HorizontalAlignment="Center"
+
                 Click="Button_Click" BorderBrush="#558888ff"/>
 
     </Grid>

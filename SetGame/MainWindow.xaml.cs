@@ -145,7 +145,7 @@ namespace SetGame
                 outputTBlock.Text = "Oops! Not a Set";
             }
             ResetCardSelction();
-            cardsLeftTBlock.Text = cards.Count.ToString();
+            cardsLeftTBlock.Text = "Cards Left: " + cards.Count.ToString();
 
         }
 
@@ -289,13 +289,13 @@ namespace SetGame
             CardControl.ResetBoard(board);
 
             cards = CreateAllCardsList();
-            cardsLeftTBlock.Text = cards.Count.ToString();
 
             //start game with 12 cards
             cardsCount = 12;
             List<Card> newCards = DrawCards(12);
             CardControl.AddNewCards(board, newCards.ToArray());
 
+            cardsLeftTBlock.Text = "Cards Left: " + cards.Count.ToString();
             isGameActive = true;
         }
         void EndGame()
@@ -330,7 +330,8 @@ namespace SetGame
             }
             cardsCount += 3;
             CardControl.AddNewCards(board, DrawCards(3).ToArray());
-            
+            cardsLeftTBlock.Text = "Cards Left: " + cards.Count.ToString();
+
         }
 
         private void EndGameButton_Click(object sender, RoutedEventArgs e)

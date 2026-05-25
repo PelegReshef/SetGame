@@ -86,7 +86,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition Height="1.15*"/>
-                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition Height="0.4*"/>
                     <RowDefinition Height="2.7*"/>
                 </Grid.RowDefinitions>
 
@@ -113,12 +113,9 @@
                     <TextBlock x:Name="outputTBlock"  Text="Press on new game to start playing."
                                Style="{StaticResource TextblockStyle}" Foreground="#444444"/>
                 </Border>
-                <Border Background="#aaF8F8F8" CornerRadius="8" Margin="8" BorderBrush="#22000000" 
-                        BorderThickness="1" Padding="5" Grid.Row="3">
-                    
-                    <TextBlock x:Name="cardsLeftTBlock"  Text=""
-                               Style="{StaticResource TextblockStyle}" Foreground="#444444"/>
-                </Border>
+
+                <TextBlock x:Name="cardsLeftTBlock"  Text="" Margin="8" Grid.Row="3"
+                            Style="{StaticResource TextblockStyle}" Foreground="#444444"/>
 
                 <Grid Grid.Row="4" x:Name="playersGrid">
                     <Grid.ColumnDefinitions>
