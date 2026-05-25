@@ -37,8 +37,9 @@ namespace SetGame
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
-            switch (comboBox.SelectedIndex)
+            var cb = (ComboBox)sender;
+
+            switch (cb.SelectedIndex)
             {
                 case 0:
                     FilterBy("PlayerName", "ASC");

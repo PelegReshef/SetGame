@@ -18,11 +18,11 @@
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
             
-            <TextBlock Text="Filter By:" FontSize="22" Foreground="#cfcfcf" 
+            <TextBlock Text="Filter by:" FontSize="22" Foreground="#cfcfcf" 
                        VerticalAlignment="Center" Margin="10" FontWeight="Medium"/>
-            
-            <ComboBox Margin="10" Width="150" VerticalContentAlignment="Center" FontSize="16"
-                      SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="2">
+
+            <ComboBox Margin="10" Width="150" FontSize="18" VerticalContentAlignment="Center" 
+                      SelectedIndex="2" HorizontalContentAlignment="Center" SelectionChanged="ComboBox_SelectionChanged">
                 <ComboBoxItem Content="A - Z"/>
                 <ComboBoxItem Content="Z - A"/>
                 <ComboBoxItem Content="Highest score"/>
