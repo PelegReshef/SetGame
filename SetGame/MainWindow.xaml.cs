@@ -188,7 +188,7 @@ namespace SetGame
                 needToSelectPlayer= true;
                 outputTBlock.Text = "Who found the Set? Click on them!";
             }
-            else
+            else 
             {
                 outputTBlock.Text = "Select three cards to create a Set";
                 needToSelectPlayer = false;
@@ -309,20 +309,28 @@ namespace SetGame
                 return;
             }
             isGameActive = false;
+            outputTBlock.Text = "Game ended. Press on new game to start playing.";
             try
             {
                 foreach (PlayerControl pc in playersGrid.Children)
                 {
                     if (pc.GetPlayer() is Player p)
                     {
-                        string sqlStr = $"INSERT INTO PlayersTable (PlayerName, PlayerScore, PlayersAmount, [Time]) VALUES ('{p.GetName()}', {p.GetPoints()}, {playersCount}, '{DateTime.Now}')";
+                        string sqlStr = $"INSERT INTO PlayersTable (PlayerName, PlayerScore, PlayersAmount, [Time])" +
+                            $" VALUES ('{p.GetName()}', {p.GetPoints()}, {playersCount}, '{DateTime.Now}')";
                         DAL.ExecuteNonQuery(sqlStr);
                     }
                 }
             }
             catch
             {
-                MessageBox.Show("There is an error trying to update your score. The leaderboard will not contain your score.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var result = MessageBox.Show("There is an error trying to update your score." +
+                    "\n Would you like to see the leaderboard anyway?", "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if (result != MessageBoxResult.Yes)
+                {
+                    CardControl.DisableBoard(board);
+                    return;
+                }
             }
             CardControl.DisableBoard(board);
             LeaderboardWindow win = new LeaderboardWindow();
