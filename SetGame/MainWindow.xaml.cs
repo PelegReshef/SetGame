@@ -266,9 +266,10 @@ namespace SetGame
                 cards[1].GetTraitArray(),
                 cards[2].GetTraitArray(),
             };
+            // iterate through all traits of the cards
             for(int i = 0; i < 4; i++)
             {
-                // the traits of the cards have to be either all
+                // each trait has to be either all
                 // different or all the same to be a set
                 if(!((traits[0][i].Equals(traits[1][i]) &&
                     traits[1][i].Equals(traits[2][i]) ) ||
