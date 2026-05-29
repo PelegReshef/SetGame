@@ -57,29 +57,21 @@ namespace SetGame
         }
 
         /// <summary>
-        /// increment one point for a given player name
+        /// remove the players from the players board controls
         /// </summary>
-        /// <returns>true if player was found else false</returns>
-        public static bool IncrementForPlayer(PlayerControl[] players, string name)
+        /// <param name="playerBoard"></param>
+        public static void ResetAllPlayers(PlayerControl[,] playerBoard)
         {
-            for (int i = 0; i < players.Length; i++)
-            {
-                if (players[i].player.GetName() == name)
-                {
-                    players[i].Increment();
-                    return true;
-                }
-            }
-            return false;
-        }
-        public static void ResetAllPlayers(PlayerControl[,] players)
-        {
-            foreach (PlayerControl pc in players)
+            foreach (PlayerControl pc in playerBoard)
             {
                 pc.SetPlayer(null);
             }
         }
-        
+
+
+        /// <summary>
+        /// add new players to the board
+        /// </summary>
         public static void CreateNewPlayers(PlayerControl[,] playerBoard, Player[] players)
         {
             for (int i = 0; i < players.Length; i++)

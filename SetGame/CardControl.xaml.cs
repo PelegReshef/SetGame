@@ -24,7 +24,7 @@ namespace SetGame
         public CardControl()
         {
             InitializeComponent();
-            this.cardBorder.RenderTransform = new ScaleTransform(1, 1);
+            this.cardBorder.RenderTransform = new ScaleTransform(1, 1); // for animations
         }
         Card currentCard = null;
         bool IsDisabled = false;
@@ -46,6 +46,7 @@ namespace SetGame
         {
             this.IsDisabled = false;
         }
+        // render new cards on the control
         private void ChangeCard(Card c)
         {
             Unhighlight();
@@ -55,6 +56,8 @@ namespace SetGame
             {
                 return;
             }
+
+            // draw the shapes of the card
             for (int i = 0; i < (int)c.GetCount() + 1; i++)
             {
                 Path p = new Path()
@@ -64,10 +67,13 @@ namespace SetGame
                     StrokeThickness = 1
                 };
 
+                // the shape of the cards are stored as Geometry on the mainwindow resources. 
+                // they are named like the shape
                 p.Data = (Geometry)FindResource(c.GetShape().ToString());
 
                 var color = Colors.White; // will get overriden
 
+                // match color to the card
                 switch (c.GetColor())
                 {
                     case Color.Red:
@@ -84,6 +90,8 @@ namespace SetGame
                 }
 
                 p.Stroke = new SolidColorBrush(color);
+
+                // match the fill style 
                 int opacity = 0;
                 switch (c.GetFill())
                 {
@@ -102,7 +110,6 @@ namespace SetGame
 
                 color.A = (byte)opacity;
                 p.Fill = new SolidColorBrush(color);
-
 
 
                 cardStackPanel.Children.Add(p);

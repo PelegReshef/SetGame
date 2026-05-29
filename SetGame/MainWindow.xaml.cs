@@ -194,6 +194,9 @@ namespace SetGame
                 needToSelectPlayer = false;
             }
         }
+        /// <summary>
+        /// remove highlight from all cards
+        /// </summary>
         void ResetCardSelction()
         {
             foreach (var card in selectedCards)
@@ -232,8 +235,7 @@ namespace SetGame
 
 
         /// <summary>
-        /// get a list of new cards that were
-        /// drawn from the cards list by a specific amount
+        /// draw new cards from the cards list
         /// </summary>
         List<Card> DrawCards(int amount)
         {
@@ -253,6 +255,9 @@ namespace SetGame
             return ret;
         }
 
+        /// <summary>
+        /// check if the three cards given are a set
+        /// </summary>
         bool IsSet(Card[] cards)
         {
             Enum[][] traits =
@@ -278,6 +283,9 @@ namespace SetGame
             return true;
         }
 
+        /// <summary>
+        /// initialize a new game
+        /// </summary>
         void NewGame()
         {
             var players = CreatePlayersList();
@@ -302,6 +310,9 @@ namespace SetGame
             CardControl.EnableBoard(board);
             isGameActive = true;
         }
+        /// <summary>
+        /// end current game and show leaderboard
+        /// </summary>
         void EndGame()
         {
             if (!isGameActive)

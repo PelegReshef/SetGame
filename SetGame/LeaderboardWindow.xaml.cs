@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace SetGame
 {
-    /// <summary>
-    /// Interaction logic for LeaderboardWindow.xaml
-    /// </summary>
     public partial class LeaderboardWindow : Window
     {
         public LeaderboardWindow()
@@ -26,6 +23,9 @@ namespace SetGame
             this.leaderboard.ItemsSource = dv;
         }
 
+        /// <summary>
+        /// generate new sql string to match current filter
+        /// </summary>
         public void FilterBy(string column, string order)
         {
             var dv = DAL.GetDataView($"SELECT * FROM PlayersTable ORDER BY {column} {order}");
