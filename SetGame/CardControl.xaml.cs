@@ -116,7 +116,6 @@ namespace SetGame
         {
             this.cardBorder.Background = new SolidColorBrush(Colors.White);
         }
-
         public void SetCard(Card c)
         {
             ChangeCard(c);
@@ -128,8 +127,10 @@ namespace SetGame
             Hide();
 
         }
+
         private void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
+            // make cards bigger when you hover on them with the mouse
             if (IsDisabled) return;
 
             Cursor = Cursors.Hand;
@@ -143,6 +144,7 @@ namespace SetGame
 
         private void UserControl_MouseLeave(object sender, MouseEventArgs e)
         {
+            // make cards return to normal size when you stop hovering
             if (IsDisabled) return;
 
             Cursor = Cursors.Arrow;
@@ -154,7 +156,9 @@ namespace SetGame
             cardBorder.RenderTransform.BeginAnimation(ScaleTransform.ScaleYProperty, da);
 
         }
-
+        /// <summary>
+        /// make all the cards on the board empty
+        /// </summary>
         public static void ResetBoard(CardControl[,] board)
         {
             foreach (var cc in board)
@@ -162,6 +166,10 @@ namespace SetGame
                 cc.ChangeCard(null);
             }
         }
+        /// <summary>
+        /// make the cards on the board visible
+        /// </summary>
+        /// <param name="board"></param>
         public static void ShowBoard(CardControl[,] board)
         {
             foreach (var cc in board)
@@ -169,7 +177,9 @@ namespace SetGame
                 cc.Show();
             }
         }
-
+        /// <summary>
+        /// make the cards on the board invisble
+        /// </summary>
         public static void HideBoard(CardControl[,] board)
         {
             foreach (var cc in board)
@@ -177,6 +187,9 @@ namespace SetGame
                 cc.Hide();
             }
         }
+        /// <summary>
+        /// make cards on the board unresponsive
+        /// </summary>
         public static void DisableBoard(CardControl[,] board)
         {
             foreach (var cc in board)
@@ -184,6 +197,9 @@ namespace SetGame
                 cc.Disable();
             }
         }
+        /// <summary>
+        /// make cards on the board responsive
+        /// </summary>
         public static void EnableBoard(CardControl[,] board)
         {
             foreach (var cc in board)
@@ -207,6 +223,9 @@ namespace SetGame
             }
             return null;
         }
+        /// <summary>
+        /// rearragne the cards on the board to fill empty spots.
+        /// </summary>
         public static void ArrangeCards(CardControl[,] board)
         {
             // find last cards on the board
@@ -280,6 +299,9 @@ namespace SetGame
                 return ret;
             }
         }
+        /// <summary>
+        /// add new cards to the board
+        /// </summary>
         public static void AddNewCards(CardControl[,] board, Card[] cards)
         {
             Queue<Card> cardsQueue = new Queue<Card>(cards);
@@ -295,6 +317,9 @@ namespace SetGame
                 }
             }
         }
+        /// <summary>
+        /// delete cards from the board
+        /// </summary>
         public static void DeleteCards(CardControl[,] board, Card[] cards)
         {
             foreach (var card  in cards)

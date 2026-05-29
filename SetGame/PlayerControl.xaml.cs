@@ -79,6 +79,7 @@ namespace SetGame
                 pc.SetPlayer(null);
             }
         }
+        
         public static void CreateNewPlayers(PlayerControl[,] playerBoard, Player[] players)
         {
             for (int i = 0; i < players.Length; i++)
