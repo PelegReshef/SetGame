@@ -37,7 +37,7 @@ public class DAL
         return cmd;
     }
 
-    // create a new data table for 
+    // create new data table for a given sql command
     public static DataTable GetDataTable(string sqlStr)
     {
         OleDbConnection con = GetConnection();
@@ -50,11 +50,13 @@ public class DAL
 
         return dt;
     }
+    // create new data view for a given sql command
     public static DataView GetDataView(string sqlStr)
     {
         return GetDataTable(sqlStr).DefaultView;
     }
 
+    // execute an sql command on the database
     public static int ExecuteNonQuery(string sqlStr)
     {
         OleDbConnection con = GetConnection();
