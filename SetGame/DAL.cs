@@ -10,6 +10,7 @@ using System.Data.OleDb;
 
 public class DAL
 {
+    // make the path work for every conputer
     public static string Path()
     {
         string s = Environment.CurrentDirectory;
@@ -20,13 +21,14 @@ public class DAL
         return s1;
     }
     
-
+    // create new connection for the database
     public static OleDbConnection GetConnection()
     {
         string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path() + @"\DatabaseSet.accdb;Persist Security Info=True";
         return new OleDbConnection(connectionString);
     }
 
+    // create a new cammand for a database connection
     public static OleDbCommand GetCommand(OleDbConnection con, string sqlStr)
     {
         OleDbCommand cmd = new OleDbCommand();
@@ -35,6 +37,7 @@ public class DAL
         return cmd;
     }
 
+    // create a new data table for 
     public static DataTable GetDataTable(string sqlStr)
     {
         OleDbConnection con = GetConnection();

@@ -60,7 +60,7 @@
     <Compile Include="CardControl.xaml.cs">
       <DependentUpon>CardControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DAL-2 %282%29.cs" />
+    <Compile Include="DAL.cs" />
     <Compile Include="LeaderboardWindow.xaml.cs">
       <DependentUpon>LeaderboardWindow.xaml</DependentUpon>
     </Compile>
