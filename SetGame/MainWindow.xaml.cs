@@ -91,7 +91,7 @@ namespace SetGame
         List<Player> CreatePlayersList()
         {
             List<Player> ret = new List<Player>();
-            Window1 win = new Window1();
+            PlayerWindow win = new PlayerWindow();
             
             if (win.ShowDialog() == true)
             {

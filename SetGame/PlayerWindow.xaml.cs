@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace SetGame
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for PlayerWindow.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class PlayerWindow : Window
     {
-        public Window1()
+        public PlayerWindow()
         {
             InitializeComponent();
         }

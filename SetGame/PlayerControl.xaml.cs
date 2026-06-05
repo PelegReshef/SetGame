@@ -80,5 +80,15 @@ namespace SetGame
                 playerBoard[i % 2, i / 2].Show();
             }
         }
+
+        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
+
+        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Cursor = Cursors.Arrow;
+        }
     }
 }
